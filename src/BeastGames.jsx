@@ -45,18 +45,15 @@ const services = [
   { icon: "🎨", title: "Concept Art & Art Direction", desc: "From thumbnails to final artwork — we define the visual language of your game world through expert art direction.", num: "01" },
   { icon: "🗿", title: "3D Characters & Assets", desc: "High-poly and game-ready 3D models built for any style — from hyper-realistic AAA to stylized mobile assets.", num: "02" },
   { icon: "🏔", title: "3D Environment Design", desc: "Complete environment creation including level art, props, materials, lighting, and in-engine integration.", num: "03" },
-  { icon: "✨", title: "Animation & VFX", desc: "Fluid character animation, particle effects, cinematic sequences, and real-time visual effects for all platforms.", num: "04" },
-  { icon: "🖥", title: "UI/UX Design", desc: "Intuitive interfaces and user experiences — menus, HUDs, icons, and full UI systems that elevate gameplay.", num: "05" },
-  { icon: "🎬", title: "Game Trailers & Cinematics", desc: "High-quality gameplay and CG trailers, in-game cinematics, and marketing videos for UE5 and pre-rendered pipelines.", num: "06" },
 ];
 
 const portfolioItems = [
-  { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: "linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483)", span: true },
-  { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: "linear-gradient(135deg,#2d132c,#801336,#c72c41,#ee4540)" },
-  { title: "Open World Adventure", tag: "Environment Art", bg: "linear-gradient(135deg,#0c0032,#190061,#240090,#3500d3)" },
-  { title: "Stylized Strategy RPG", tag: "Mobile Game", bg: "linear-gradient(135deg,#1b262c,#0f4c75,#3282b8,#bbe1fa)", spanCol: true },
-  { title: "Racing Game Cinematics", tag: "VFX & Animation", bg: "linear-gradient(135deg,#1a1a2e,#e94560,#533483,#0f3460)" },
-  { title: "Historical Strategy Game", tag: "Concept Art", bg: "linear-gradient(135deg,#2b2e4a,#e84545,#903749,#53354a)" },
+  { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: "/src/assets/26.jpg", span: true },
+  { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: "/src/assets/hp1.png" },
+  { title: "Open World Adventure", tag: "Environment Art", bg: "/src/assets/11.jpg" },
+  { title: "Stylized Strategy RPG", tag: "Mobile Game", bg: "/src/assets/2.png", spanCol: true },
+  { title: "Racing Game Cinematics", tag: "VFX & Animation", bg: "/src/assets/sh1.png" },
+  // { title: "Historical Strategy Game", tag: "Concept Art", bg: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=600&fit=crop" },
 ];
 
 const processSteps = [
@@ -73,12 +70,12 @@ const testimonials = [
   { quote: "They accepted the challenge with tireless enthusiasm and talent, and the results were fantastic. Very few compromises that still capture wonder.", author: "Creative Director", role: "Adventure Game Studio" },
 ];
 
-const marqueeItems = ["CONCEPT ART", "3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & VFX", "UI/UX DESIGN", "GAME TRAILERS", "CO-DEVELOPMENT", "PORTING"];
+const marqueeItems = ["3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & RIGGING", "GAME TRAILERS" ];
 
 const stats = [
-  { big: "650+", desc: "Artists on Staff" },
+  { big: "10+", desc: "Artists on Staff" },
   { big: "3", desc: "Continents" },
-  { big: "320+", desc: "Projects in 2024" },
+  { big: "320+", desc: "Projects in 2025" },
   { big: "30+", desc: "Partner Countries" },
 ];
 
@@ -348,13 +345,16 @@ export default function BeastGamesInteractive() {
           <FadeUp delay={0.4}>
             <div style={{
               display:"grid",
-              gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, auto)",
+              gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(2, auto)",
               gap: isMobile ? "20px 16px" : isWide ? "32px 80px" : "24px 60px",
               marginTop: isMobile ? 32 : isWide ? 100 : 80,
               paddingTop: isMobile ? 24 : isWide ? 52 : 40,
               borderTop:"1px solid rgba(255,255,255,0.06)",
             }}>
-              {[{ n:"650+", l:"Professional Artists" }, { n:"12+", l:"Years Experience" }, { n:"320+", l:"Projects Delivered" }, { n:"7/10", l:"Top Publishers" }].map((s,i) => (
+              {[{ n:"10+", l:"Professional Artists" }, { n:"4+", l:"Years Experience" }, 
+              // { n:"320+", l:"Projects Delivered" },
+              //  { n:"7/10", l:"Top Publishers" }
+              ].map((s,i) => (
                 <div key={i}>
                   <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : is4K ? "4.5rem" : isWide ? "3.8rem" : "3.2rem", background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", lineHeight:1 }}>{s.n}</div>
                   <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".55rem" : isWide ? ".8rem" : ".7rem", fontWeight:600, letterSpacing: isMobile ? 1 : isWide ? 3 : 2, textTransform:"uppercase", color:"#5a5a6a", marginTop: isWide ? 8 : 4 }}>
@@ -389,6 +389,7 @@ export default function BeastGamesInteractive() {
             display:"grid",
             gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
             gap: isWide ? 3 : 2,
+            alignItems:"stretch"
           }}>
             {services.map((s, i) => (
               <FadeUp key={i} delay={isMobile ? 0 : i * 0.05}>
@@ -448,7 +449,8 @@ export default function BeastGamesInteractive() {
                     onMouseLeave={() => setHoveredPortfolio(null)}
                     style={{
                       position:"relative", overflow:"hidden", cursor:"pointer",
-                      background: p.bg, gridColumn:`span ${colSpan}`, gridRow:`span ${rowSpan}`,
+                      backgroundImage: `url(${p.bg})`, backgroundSize:"cover", backgroundPosition:"center",
+                      gridColumn:`span ${colSpan}`, gridRow:`span ${rowSpan}`,
                     }}>
                     <div style={{
                       position:"absolute", inset:0,
