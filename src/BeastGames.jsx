@@ -47,12 +47,18 @@ const services = [
   { icon: "🏔", title: "3D Environment Design", desc: "Complete environment creation including level art, props, materials, lighting, and in-engine integration.", num: "03" },
 ];
 
+import hp1 from "./assets/hp1.png";
+import sh1 from "./assets/sh1.png";
+import sh2 from "./assets/2.png";
+import img26 from "./assets/26.jpg";
+import img11 from "./assets/11.jpg";
+
 const portfolioItems = [
-  { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: "/src/assets/26.jpg", span: true },
-  { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: "/src/assets/hp1.png" },
-  { title: "Open World Adventure", tag: "Environment Art", bg: "/src/assets/11.jpg" },
-  { title: "Stylized Strategy RPG", tag: "Mobile Game", bg: "/src/assets/2.png", spanCol: true },
-  { title: "Racing Game Cinematics", tag: "VFX & Animation", bg: "/src/assets/sh1.png" },
+  { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: img26, span: true },
+  { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: hp1 },
+  { title: "Open World Adventure", tag: "Environment Art", bg: img11 },
+  { title: "Stylized Strategy RPG", tag: "Mobile Game", bg: sh2, spanCol: true },
+  { title: "Racing Game Cinematics", tag: "VFX & Animation", bg: sh1 },
   // { title: "Historical Strategy Game", tag: "Concept Art", bg: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=600&fit=crop" },
 ];
 
