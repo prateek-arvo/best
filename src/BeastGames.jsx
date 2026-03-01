@@ -151,7 +151,6 @@ export default function BeastGamesInteractive() {
   const descStyle = {
     fontSize: isMobile ? ".9rem" : isWide ? "1.15rem" : "1.05rem",
     lineHeight: 1.75, color: "#8a8a9a",
-    maxWidth: isWide ? 700 : 600,
     marginBottom: isMobile ? 28 : isWide ? 72 : 60,
   };
 
@@ -408,13 +407,17 @@ export default function BeastGamesInteractive() {
                     position:"relative", overflow:"hidden", cursor:"pointer",
                     border: hoveredService === i ? "1px solid rgba(255,60,31,0.15)" : "1px solid transparent",
                     transition:"all .4s",
+                    height:"100%"
                   }}>
                   <div style={{
                     position:"absolute", top:0, left:0, width:"100%", height:3,
                     background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)",
                     transform: hoveredService === i ? "scaleX(1)" : "scaleX(0)",
-                    transformOrigin:"left", transition:"transform .4s"
-                  }} />
+                    transformOrigin:"left", transition:"transform .4s",
+                    height:"100%"
+                    
+                  }}
+                  id="123" />
                   <div style={{ position:"absolute", top: isWide ? 16 : 10, right: isWide ? 20 : 12, fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "4.5rem" : "3.5rem", color:"rgba(255,255,255,0.03)" }}>{s.num}</div>
                   <div style={{
                     width: isMobile ? 36 : isWide ? 56 : 48, height: isMobile ? 36 : isWide ? 56 : 48,
@@ -629,7 +632,7 @@ export default function BeastGamesInteractive() {
                 <span style={{ width: isWide ? 10 : 6, height: isWide ? 10 : 6, background:"#ff3c1f", borderRadius:"50%", display:"inline-block", flexShrink:0 }} />
                 BEAST GAMES{!isMobile && " INTERACTIVE"}
               </div>
-              <p style={{ fontSize: isMobile ? ".72rem" : isWide ? ".95rem" : ".85rem", lineHeight:1.65, color:"#8a8a9a", maxWidth: isWide ? 400 : 320 }}>
+              <p style={{ fontSize: isMobile ? ".72rem" : isWide ? ".95rem" : ".85rem", lineHeight:1.65, color:"#8a8a9a" }}>
                 {isMobile
                   ? "International art production and game development studio. Exceptional 2D and 3D game art for all platforms."
                   : "An international art production and game development studio providing end-to-end external services worldwide. Producing exceptional 2D and 3D game art for PC, console, and mobile platforms."
