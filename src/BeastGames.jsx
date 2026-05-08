@@ -53,6 +53,15 @@ import sh2 from "./assets/2.png";
 import img26 from "./assets/26.jpg";
 import img11 from "./assets/11.jpg";
 
+import slide1 from "./assets/slide 1.webp";
+import slide2 from "./assets/slide 2.webp";
+import slide3 from "./assets/slide 3.webp";
+import slide4 from "./assets/slide 4.webp";
+import slide5 from "./assets/slide 5.webp";
+
+// Hero slideshow images — swap/add entries here as new images arrive.
+const heroSlides = [slide1, slide2, slide3, slide4, slide5];
+
 const portfolioItems = [
   { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: img26, span: true },
   { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: hp1 },
@@ -76,7 +85,7 @@ const testimonials = [
   { quote: "They accepted the challenge with tireless enthusiasm and talent, and the results were fantastic. Very few compromises that still capture wonder.", author: "Creative Director", role: "Adventure Game Studio" },
 ];
 
-const marqueeItems = ["3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & RIGGING", "GAME TRAILERS" ];
+const marqueeItems = ["3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & RIGGING" ];
 
 const stats = [
   { big: "10+", desc: "Artists on Staff" },
@@ -103,6 +112,7 @@ export default function BeastGamesInteractive() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
   const [hoveredPortfolio, setHoveredPortfolio] = useState(null);
+  const [heroSlide, setHeroSlide] = useState(0);
   const { w } = useWindowSize();
 
   const isMobile = w < 768;
@@ -126,6 +136,14 @@ export default function BeastGamesInteractive() {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (heroSlides.length <= 1) return;
+    const id = setInterval(() => {
+      setHeroSlide((s) => (s + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   const scrollTo = useCallback((id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -278,7 +296,22 @@ export default function BeastGamesInteractive() {
         padding:`${isMobile ? 76 : isWide ? 140 : 120}px ${pad}px ${isMobile ? 36 : isWide ? 100 : 80}px`,
         ...wrapStyle,
       }}>
-        <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 80% 60% at 70% 40%, rgba(255,60,31,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255,107,26,0.05) 0%, transparent 60%), #0a0a0f" }} />
+        {/* Slideshow background */}
+        <div style={{ position:"absolute", inset:0, background:"#0a0a0f" }} />
+        {heroSlides.map((src, i) => (
+          <div key={i} style={{
+            position:"absolute", inset:0,
+            backgroundImage:`url(${src})`,
+            backgroundSize:"cover",
+            backgroundPosition:"center",
+            opacity: heroSlide === i ? 1 : 0,
+            transition:"opacity 1.4s ease-in-out",
+          }} />
+        ))}
+        {/* Dark overlay for text readability */}
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(135deg, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.55) 50%, rgba(10,10,15,0.9) 100%)" }} />
+        {/* Brand color wash */}
+        <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 80% 60% at 70% 40%, rgba(255,60,31,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255,107,26,0.08) 0%, transparent 60%)" }} />
         <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)", backgroundSize: isMobile ? "40px 40px" : isWide ? "120px 120px" : "80px 80px", WebkitMaskImage:"radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent)" }} />
 
         <Container style={{ position:"relative", zIndex:2, overflow:"hidden" }}>
@@ -297,9 +330,10 @@ export default function BeastGamesInteractive() {
               marginBottom: isMobile ? 14 : isWide ? 40 : 28,
               overflowWrap: "break-word", wordBreak: "break-word",
               width: "100%", maxWidth: isWide ? 1100 : "100%",
+              marginLeft: "auto", marginRight: "auto",
+              textAlign: "center",
             }}>
-              2D AND 3D<br />
-              <span style={{ WebkitTextStroke: isMobile ? "1px #f0eee9" : isWide ? "3px #f0eee9" : "2px #f0eee9", color:"transparent" }}>VIDEO GAME</span>
+              <span style={{ WebkitTextStroke: isMobile ? "1px #f0eee9" : isWide ? "3px #f0eee9" : "2px #f0eee9", color:"transparent" }}>3D VIDEO GAME</span>
               {isMobile ? <br /> : " "}
               <span style={{ color:"#ff3c1f" }}>ART</span><br />
               FOR YOUR GAMES
@@ -311,6 +345,8 @@ export default function BeastGamesInteractive() {
               fontSize: isMobile ? ".9rem" : isWide ? "1.25rem" : "1.15rem",
               lineHeight: 1.75, color:"#8a8a9a",
               maxWidth: isMobile ? "100%" : isWide ? 680 : 560,
+              marginLeft:"auto", marginRight:"auto",
+              textAlign:"center",
               marginBottom: isMobile ? 24 : isWide ? 52 : 40,
             }}>
               {isMobile
@@ -321,7 +357,7 @@ export default function BeastGamesInteractive() {
           </FadeUp>
 
           <FadeUp delay={0.3}>
-            <div style={{ display:"flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : isWide ? 20 : 14, width:"100%", maxWidth:"100%" }}>
+            <div style={{ display:"flex", flexDirection: isMobile ? "column" : "row", justifyContent:"center", gap: isMobile ? 12 : isWide ? 20 : 14, width:"100%", maxWidth:"100%" }}>
               <button onClick={() => scrollTo("contact")} style={{
                 fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
                 padding: isMobile ? "14px 20px" : isWide ? "18px 48px" : "16px 40px",
@@ -351,6 +387,9 @@ export default function BeastGamesInteractive() {
             <div style={{
               display:"grid",
               gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(2, auto)",
+              justifyContent:"center",
+              justifyItems:"center",
+              textAlign:"center",
               gap: isMobile ? "20px 16px" : isWide ? "32px 80px" : "24px 60px",
               marginTop: isMobile ? 32 : isWide ? 100 : 80,
               paddingTop: isMobile ? 24 : isWide ? 52 : 40,
@@ -382,6 +421,27 @@ export default function BeastGamesInteractive() {
           ))}
         </div>
       </div>
+
+      {/* ===== ABOUT ===== */}
+      <section id="about" style={{ padding:`${sectionVPad}px ${pad}px`, ...wrapStyle }}>
+        <Container>
+          <FadeUp><div style={labelStyle}><span style={{ width: isWide ? 36 : 20, height:1, background:"#ff3c1f", display:"inline-block" }} />Who We Are</div></FadeUp>
+          <FadeUp delay={0.1}><h2 style={{ ...headingStyle, textAlign:"center" }}>About Us</h2></FadeUp>
+          <FadeUp delay={0.12}>
+            <div style={{ maxWidth: isWide ? 980 : 820, margin:"0 auto", display:"flex", flexDirection:"column", gap: isMobile ? 18 : isWide ? 28 : 22, textAlign:"center" }}>
+              <p style={{ fontSize: isMobile ? ".9rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.85, color:"#a8a8b8" }}>
+                At Beast Games Interactive, we specialize in high fidelity 3D art. Our team is a collective of specialized artists focused on the high-end AAA character pipeline. We take pride in our technical rigor—pushing MD pass limits, perfecting anatomy, and ensuring every asset is fully optimized for real-time engine performance.
+              </p>
+              <p style={{ fontSize: isMobile ? ".9rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.85, color:"#a8a8b8" }}>
+                Operating out of Dehradun, we bridge the gap between high-concept artistry and technical execution. When a project demands characters that carry weight, history, and presence, it demands the <span style={{ color:"#ff3c1f", fontWeight:700 }}>Beast</span>.
+              </p>
+              <p style={{ fontSize: isMobile ? ".9rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.85, color:"#a8a8b8" }}>
+                Our studio combines the serenity of our Himalayan surroundings with a relentless "Beast-mode" work ethic to provide global developers with characters that are as technically optimized as they are artistically breathtaking.
+              </p>
+            </div>
+          </FadeUp>
+        </Container>
+      </section>
 
       {/* ===== SERVICES ===== */}
       <section id="services" style={{ padding:`${sectionVPad}px ${pad}px`, background:"#101018", ...wrapStyle }}>
