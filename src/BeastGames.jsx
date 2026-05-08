@@ -42,9 +42,12 @@ const FadeUp = ({ children, delay = 0 }) => {
 };
 
 const services = [
-  { icon: "🎨", title: "Concept Art & Art Direction", desc: "From thumbnails to final artwork — we define the visual language of your game world through expert art direction.", num: "01" },
-  { icon: "🗿", title: "3D Characters & Assets", desc: "High-poly and game-ready 3D models built for any style — from hyper-realistic AAA to stylized mobile assets.", num: "02" },
-  { icon: "🏔", title: "3D Environment Design", desc: "Complete environment creation including level art, props, materials, lighting, and in-engine integration.", num: "03" },
+  { icon: "🦾", title: "3D Character Art", desc: "High-poly and game-ready AAA characters with sharp anatomy, sculpting, and texture work optimized for real-time engines.", num: "01" },
+  { icon: "🎭", title: "3D Stylized Character", desc: "Stylized character creation across genres — from cel-shaded heroes to mobile-friendly forms with strong silhouettes.", num: "02" },
+  { icon: "💇", title: "Real-Time Hairs", desc: "Optimized hair cards, grooms, and real-time hair pipelines for engine performance without sacrificing fidelity.", num: "03" },
+  { icon: "🗡️", title: "Props & Accessories", desc: "Hero props, weapons, gear, and detail accessories built to match character pipelines and world-building.", num: "04" },
+  { icon: "💎", title: "Collectibles", desc: "Trophy assets, rare-tier collectibles, and showcase pieces designed for in-game display and high-detail closeups.", num: "05" },
+  { icon: "🧥", title: "Clothing and Simulation", desc: "Marvelous Designer-driven garments, real-time cloth simulation, and dynamic outfits ready for engine use.", num: "06" },
 ];
 
 import hp1 from "./assets/hp1.png";
@@ -59,16 +62,20 @@ import slide3 from "./assets/slide 3.webp";
 import slide4 from "./assets/slide 4.webp";
 import slide5 from "./assets/slide 5.webp";
 
+import logo from "./assets/logo.jpg";
+
 // Hero slideshow images — swap/add entries here as new images arrive.
 const heroSlides = [slide1, slide2, slide3, slide4, slide5];
 
+// Add per-item `images` arrays for the carousel modal — swap in real images per discipline.
 const portfolioItems = [
-  { title: "Dark Fantasy Action RPG", tag: "AAA Console", bg: img26, span: true },
-  { title: "Sci-Fi Multiplayer Shooter", tag: "3D Characters", bg: hp1 },
-  { title: "Open World Adventure", tag: "Environment Art", bg: img11 },
-  { title: "Stylized Strategy RPG", tag: "Mobile Game", bg: sh2, spanCol: true },
-  { title: "Racing Game Cinematics", tag: "VFX & Animation", bg: sh1 },
-  // { title: "Historical Strategy Game", tag: "Concept Art", bg: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=600&fit=crop" },
+  { title: "3D Character Art", tag: "AAA Pipeline", bg: img26, span: true, images: [img26, hp1, sh2, img11] },
+  { title: "3D Stylised Art", tag: "Stylised", bg: sh2, images: [sh2, img11, sh1] },
+  { title: "Real Time Hair", tag: "Hair Grooming", bg: hp1, images: [hp1, img26, sh2] },
+  { title: "Clothing and Simulation", tag: "Cloth Simulation", bg: img11, spanCol: true, images: [img11, sh1, hp1] },
+  { title: "Collectibles", tag: "Showcase", bg: sh1, images: [sh1, sh2, img11] },
+  { title: "Rigging", tag: "Skeletal & Facial", bg: hp1, images: [hp1, img26, sh1] },
+  { title: "Props and Accessories", tag: "Hero Props", bg: sh2, spanCol: true, images: [sh2, hp1, img26] },
 ];
 
 const processSteps = [
@@ -86,13 +93,6 @@ const testimonials = [
 ];
 
 const marqueeItems = ["3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & RIGGING" ];
-
-const stats = [
-  { big: "10+", desc: "Artists on Staff" },
-  { big: "3", desc: "Continents" },
-  { big: "320+", desc: "Projects in 2025" },
-  { big: "30+", desc: "Partner Countries" },
-];
 
 /* ===== Centered container component for widescreen ===== */
 const Container = ({ children, style = {}, full = false }) => (
@@ -112,6 +112,8 @@ export default function BeastGamesInteractive() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
   const [hoveredPortfolio, setHoveredPortfolio] = useState(null);
+  const [openPortfolio, setOpenPortfolio] = useState(null); // index of open project or null
+  const [lightboxIdx, setLightboxIdx] = useState(null); // index of image in carousel or null
   const [heroSlide, setHeroSlide] = useState(0);
   const { w } = useWindowSize();
 
@@ -133,9 +135,30 @@ export default function BeastGamesInteractive() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
+    const lock = menuOpen || openPortfolio !== null;
+    document.body.style.overflow = lock ? "hidden" : "";
+    document.documentElement.style.overflow = lock ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen, openPortfolio]);
+
+  useEffect(() => {
+    if (openPortfolio === null) return;
+    const total = portfolioItems[openPortfolio].images?.length ?? 1;
+    const handler = (e) => {
+      if (e.key === "Escape") {
+        if (lightboxIdx !== null) setLightboxIdx(null);
+        else setOpenPortfolio(null);
+      } else if (lightboxIdx !== null) {
+        if (e.key === "ArrowRight") setLightboxIdx((c) => (c + 1) % total);
+        else if (e.key === "ArrowLeft") setLightboxIdx((c) => (c - 1 + total) % total);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [openPortfolio, lightboxIdx]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
@@ -218,19 +241,25 @@ export default function BeastGamesInteractive() {
             letterSpacing: isMobile ? 1 : isWide ? 3 : 2,
             display:"flex", alignItems:"center", gap: isMobile ? 8 : 12,
           }}>
-            <span style={{ width: isMobile ? 8 : isWide ? 12 : 10, height: isMobile ? 8 : isWide ? 12 : 10, background:"#ff3c1f", borderRadius:"50%", display:"inline-block", boxShadow:"0 0 12px rgba(255,60,31,0.35)", animation:"pulse 2s infinite", flexShrink:0 }} />
+            <img src={logo} alt="Beast Games Interactive" style={{ height: isMobile ? 28 : isWide ? 48 : 38, width:"auto", display:"block", flexShrink:0 }} />
             {isMobile ? "BEAST GAMES" : "BEAST GAMES INTERACTIVE"}
           </div>
 
           {isDesktop ? (
             <div style={{ display:"flex", gap: isWide ? 48 : 36, alignItems:"center" }}>
-              {["services","portfolio","process","testimonials"].map(s => (
-                <a key={s} onClick={() => scrollTo(s)} style={{
+              {[
+                { label: "services", target: "services" },
+                { label: "portfolio", target: "portfolio" },
+                { label: "process", target: "process" },
+                { label: "Clients", target: "testimonials" },
+                { label: "Careers", target: "contact" },
+              ].map(({ label, target }) => (
+                <a key={label} onClick={() => scrollTo(target)} style={{
                   fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".9rem" : ".85rem", fontWeight:600,
                   letterSpacing: isWide ? 2 : 1.5, textTransform:"uppercase", color:"#8a8a9a", cursor:"pointer", transition:"color .3s"
                 }}
                   onMouseEnter={e => e.target.style.color="#f0eee9"} onMouseLeave={e => e.target.style.color="#8a8a9a"}>
-                  {s === "testimonials" ? "Clients" : s}
+                  {label}
                 </a>
               ))}
               <button onClick={() => scrollTo("contact")} style={{
@@ -267,14 +296,21 @@ export default function BeastGamesInteractive() {
             animation:"slideIn 0.3s cubic-bezier(0.22,1,0.36,1)",
             overflowY:"auto", WebkitOverflowScrolling:"touch"
           }}>
-            {["services","portfolio","process","testimonials","contact"].map((s, i) => (
-              <a key={s} onClick={() => scrollTo(s)} style={{
+            {[
+              { label: "services", target: "services" },
+              { label: "portfolio", target: "portfolio" },
+              { label: "process", target: "process" },
+              { label: "Clients", target: "testimonials" },
+              { label: "Careers", target: "contact" },
+              { label: "contact", target: "contact" },
+            ].map(({ label, target }, i) => (
+              <a key={label} onClick={() => scrollTo(target)} style={{
                 fontFamily:"'Exo 2',sans-serif", fontSize:".95rem", fontWeight:600,
                 letterSpacing:2, textTransform:"uppercase", color:"#8a8a9a", cursor:"pointer",
                 display:"flex", alignItems:"center", gap:12, padding:"6px 0",
               }}>
                 <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:".85rem", color:"#ff3c1f", width:24 }}>0{i+1}</span>
-                {s === "testimonials" ? "Clients" : s}
+                {label}
               </a>
             ))}
             <div style={{ marginTop:"auto", paddingTop:28, borderTop:"1px solid rgba(255,255,255,0.06)" }}>
@@ -516,6 +552,7 @@ export default function BeastGamesInteractive() {
                   <div key={i}
                     onMouseEnter={() => setHoveredPortfolio(i)}
                     onMouseLeave={() => setHoveredPortfolio(null)}
+                    onClick={() => { setOpenPortfolio(i); setLightboxIdx(null); }}
                     style={{
                       position:"relative", overflow:"hidden", cursor:"pointer",
                       backgroundImage: `url(${p.bg})`, backgroundSize:"cover", backgroundPosition:"center",
@@ -575,27 +612,6 @@ export default function BeastGamesInteractive() {
           </FadeUp>
         </Container>
       </section>
-
-      {/* ===== STATS ===== */}
-      <Container>
-        <div style={{ display:"grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", borderTop:"1px solid rgba(255,255,255,0.06)", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
-          {stats.map((s, i) => (
-            <FadeUp key={i} delay={i * 0.08}>
-              <div style={{
-                padding: isMobile ? "24px 8px" : isTablet ? "44px 20px" : isWide ? 80 : 60, textAlign:"center",
-                borderRight: (isMobile ? (i % 2 === 0) : (i < 3)) ? "1px solid rgba(255,255,255,0.06)" : "none",
-                borderBottom: isMobile && i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                transition:"background .3s",
-              }}
-                onMouseEnter={e => { if(isDesktop) e.currentTarget.style.background="rgba(255,60,31,0.03)"; }}
-                onMouseLeave={e => e.currentTarget.style.background="transparent"}>
-                <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : is4K ? "5rem" : isWide ? "4.5rem" : "3.8rem", background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", lineHeight:1 }}>{s.big}</div>
-                <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".5rem" : isWide ? ".8rem" : ".7rem", fontWeight:600, letterSpacing: isMobile ? 1 : isWide ? 3 : 2, textTransform:"uppercase", color:"#5a5a6a", marginTop: isWide ? 10 : 4 }}>{s.desc}</div>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </Container>
 
       {/* ===== TESTIMONIALS ===== */}
       <section id="testimonials" style={{ padding:`${sectionVPad}px ${pad}px`, position:"relative", overflow:"hidden", ...wrapStyle }}>
@@ -689,7 +705,7 @@ export default function BeastGamesInteractive() {
           }}>
             <div style={{ gridColumn: isMobile ? "span 2" : isTablet ? "span 2" : "auto" }}>
               <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? ".9rem" : isWide ? "1.8rem" : "1.5rem", letterSpacing: isWide ? 3 : 1.5, marginBottom: isWide ? 16 : 8, display:"flex", alignItems:"center", gap: isWide ? 12 : 6 }}>
-                <span style={{ width: isWide ? 10 : 6, height: isWide ? 10 : 6, background:"#ff3c1f", borderRadius:"50%", display:"inline-block", flexShrink:0 }} />
+                <img src={logo} alt="Beast Games Interactive" style={{ height: isMobile ? 24 : isWide ? 44 : 34, width:"auto", display:"block", flexShrink:0 }} />
                 BEAST GAMES{!isMobile && " INTERACTIVE"}
               </div>
               <p style={{ fontSize: isMobile ? ".72rem" : isWide ? ".95rem" : ".85rem", lineHeight:1.65, color:"#8a8a9a" }}>
@@ -700,18 +716,41 @@ export default function BeastGamesInteractive() {
               </p>
             </div>
             {[
-              { title: "Services", items: ["Concept Art","3D Characters","Environments","Animation & VFX","UI/UX Design","Game Trailers"] },
-              { title: "Company", items: ["About Us","Portfolio","Careers","News","Contact"] },
-              ...(!isMobile ? [{ title: "Platforms", items: ["PC / Steam","PlayStation","Xbox","Nintendo Switch","iOS & Android","VR"] }] : []),
+              { title: "Services", items: [
+                { label: "3D Character Art", target: "services" },
+                { label: "3D Stylized Character", target: "services" },
+                { label: "Real-Time Hairs", target: "services" },
+                { label: "Props & Accessories", target: "services" },
+                { label: "Collectibles", target: "services" },
+                { label: "Clothing and Simulation", target: "services" },
+              ] },
+              { title: "Company", items: [
+                { label: "About Us", target: "about" },
+                { label: "Portfolio", target: "portfolio" },
+                { label: "Process", target: "process" },
+                { label: "Testimonials", target: "testimonials" },
+                { label: "Contact", target: "contact" },
+              ] },
+              ...(!isMobile ? [{ title: "Platforms", items: [
+                { label: "PC / Steam" },
+                { label: "PlayStation" },
+                { label: "Xbox" },
+                { label: "Nintendo Switch" },
+                { label: "iOS & Android" },
+                { label: "VR" },
+              ] }] : []),
             ].map((col, ci) => (
               <div key={ci}>
                 <h4 style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".55rem" : isWide ? ".75rem" : ".65rem", fontWeight:700, letterSpacing: isWide ? 3 : 2, textTransform:"uppercase", color:"#5a5a6a", marginBottom: isMobile ? 8 : isWide ? 28 : 20 }}>{col.title}</h4>
                 <ul style={{ listStyle:"none", padding:0 }}>
                   {col.items.map((item, ii) => (
                     <li key={ii} style={{ marginBottom: isMobile ? 6 : isWide ? 16 : 12 }}>
-                      <a href="#" style={{ fontSize: isMobile ? ".7rem" : isWide ? ".95rem" : ".85rem", color:"#8a8a9a", textDecoration:"none", transition:"color .3s" }}
+                      <a
+                        href={item.target ? `#${item.target}` : "#"}
+                        onClick={item.target ? (e) => { e.preventDefault(); scrollTo(item.target); } : undefined}
+                        style={{ fontSize: isMobile ? ".7rem" : isWide ? ".95rem" : ".85rem", color:"#8a8a9a", textDecoration:"none", transition:"color .3s", cursor: item.target ? "pointer" : "default" }}
                         onMouseEnter={e => e.target.style.color="#ff3c1f"} onMouseLeave={e => e.target.style.color="#8a8a9a"}>
-                        {item}
+                        {item.label}
                       </a>
                     </li>
                   ))}
@@ -730,6 +769,205 @@ export default function BeastGamesInteractive() {
           </div>
         </Container>
       </footer>
+
+      {/* ===== PORTFOLIO PROJECT VIEW (gallery) ===== */}
+      {openPortfolio !== null && (() => {
+        const item = portfolioItems[openPortfolio];
+        const images = item.images ?? [item.bg];
+        const total = images.length;
+        return (
+          <div
+            onClick={() => setOpenPortfolio(null)}
+            style={{
+              position:"fixed", inset:0, zIndex:1000,
+              background:"#0a0a0f",
+              overflowY:"auto",
+              overscrollBehavior:"contain",
+              animation:"fadeIn .3s ease",
+            }}>
+            <button
+              onClick={(e) => { e.stopPropagation(); setOpenPortfolio(null); }}
+              aria-label="Close"
+              style={{
+                position:"fixed", top: isMobile ? 14 : 24, right: isMobile ? 14 : 24,
+                width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
+                background:"rgba(10,10,15,0.85)", color:"#fff",
+                border:"1px solid rgba(255,255,255,0.18)",
+                fontSize: isMobile ? "1.2rem" : "1.5rem",
+                cursor:"pointer", zIndex:2, transition:"all .25s",
+                fontFamily:"'Exo 2',sans-serif",
+                display:"flex", alignItems:"center", justifyContent:"center",
+                padding:0, lineHeight:1,
+              }}
+              onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
+              onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
+            >×</button>
+
+            <div
+              onClick={e => e.stopPropagation()}
+              style={{
+                width:"100%", maxWidth: 1400, margin:"0 auto",
+                padding: isMobile ? "60px 16px 40px" : "80px 40px 60px",
+                display:"flex", flexDirection:"column", gap: isMobile ? 24 : 40,
+              }}
+            >
+              <div style={{ textAlign:"center" }}>
+                <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".65rem" : ".8rem", letterSpacing:3, textTransform:"uppercase", color:"#ff3c1f", fontWeight:700, marginBottom: 8 }}>{item.tag}</div>
+                <h3 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "3.5rem" : "2.8rem", letterSpacing:1, color:"#fff", marginBottom: 6 }}>{item.title}</h3>
+                <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", letterSpacing:1 }}>
+                  {total} {total === 1 ? "image" : "images"}
+                </div>
+              </div>
+
+              <div style={{
+                display:"grid",
+                gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(2, 1fr)",
+                gap: isMobile ? 12 : 20,
+              }}>
+                {images.map((src, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setLightboxIdx(i)}
+                    style={{
+                      position:"relative", overflow:"hidden", cursor:"pointer",
+                      aspectRatio:"4 / 3",
+                      backgroundImage:`url(${src})`,
+                      backgroundSize:"cover",
+                      backgroundPosition:"center",
+                      transition:"transform .4s",
+                    }}
+                    onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
+                    onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
+                  >
+                    <div style={{
+                      position:"absolute", inset:0,
+                      background:"linear-gradient(135deg, rgba(255,60,31,0) 0%, rgba(255,60,31,0) 60%, rgba(255,60,31,0.18) 100%)",
+                      opacity: 0,
+                      transition:"opacity .3s",
+                    }}
+                      onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ===== LIGHTBOX CAROUSEL ===== */}
+            {lightboxIdx !== null && (
+              <div
+                onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
+                style={{
+                  position:"fixed", inset:0, zIndex:1100,
+                  background:"#000",
+                  display:"flex", alignItems:"center", justifyContent:"center",
+                  padding: isMobile ? "72px 16px 40px" : "100px 60px 80px",
+                  animation:"fadeIn .25s ease",
+                  overscrollBehavior:"contain",
+                }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
+                  aria-label="Close"
+                  style={{
+                    position:"absolute", top: isMobile ? 14 : 24, right: isMobile ? 14 : 24,
+                    width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
+                    background:"transparent", color:"#fff",
+                    border:"1px solid rgba(255,255,255,0.18)",
+                    fontSize: isMobile ? "1.2rem" : "1.5rem",
+                    cursor:"pointer", zIndex:2, transition:"all .25s",
+                    display:"flex", alignItems:"center", justifyContent:"center",
+                    padding:0, lineHeight:1,
+                  }}
+                  onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
+                  onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
+                >×</button>
+
+                <div onClick={e => e.stopPropagation()} style={{
+                  position:"relative", width:"100%", maxWidth: 1400,
+                  height:"100%",
+                  display:"flex", flexDirection:"column", gap: isMobile ? 16 : 20,
+                }}>
+                  <div style={{
+                    position:"relative", width:"100%",
+                    flex:1, minHeight:0,
+                    background:"#0a0a0f",
+                    overflow:"hidden",
+                  }}>
+                    {images.map((src, i) => (
+                      <div key={i} style={{
+                        position:"absolute", inset:0,
+                        backgroundImage:`url(${src})`,
+                        backgroundSize:"contain",
+                        backgroundPosition:"center",
+                        backgroundRepeat:"no-repeat",
+                        opacity: lightboxIdx === i ? 1 : 0,
+                        transition:"opacity .4s ease",
+                      }} />
+                    ))}
+
+                    {total > 1 && (
+                      <>
+                        <button
+                          onClick={() => setLightboxIdx((c) => (c - 1 + total) % total)}
+                          aria-label="Previous"
+                          style={{
+                            position:"absolute", left: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)",
+                            width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
+                            background:"transparent", color:"#fff",
+                            border:"1px solid rgba(255,255,255,0.18)",
+                            fontSize: isMobile ? "1.2rem" : "1.5rem",
+                            cursor:"pointer", transition:"all .25s",
+                            display:"flex", alignItems:"center", justifyContent:"center",
+                            padding:0, lineHeight:1,
+                          }}
+                          onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
+                          onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
+                        >‹</button>
+                        <button
+                          onClick={() => setLightboxIdx((c) => (c + 1) % total)}
+                          aria-label="Next"
+                          style={{
+                            position:"absolute", right: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)",
+                            width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
+                            background:"transparent", color:"#fff",
+                            border:"1px solid rgba(255,255,255,0.18)",
+                            fontSize: isMobile ? "1.2rem" : "1.5rem",
+                            cursor:"pointer", transition:"all .25s",
+                            display:"flex", alignItems:"center", justifyContent:"center",
+                            padding:0, lineHeight:1,
+                          }}
+                          onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
+                          onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
+                        >›</button>
+                      </>
+                    )}
+                  </div>
+
+                  {total > 1 && (
+                    <div style={{ display:"flex", gap:10, justifyContent:"center", alignItems:"center" }}>
+                      {images.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setLightboxIdx(i)}
+                          aria-label={`Slide ${i + 1}`}
+                          style={{
+                            width: lightboxIdx === i ? 28 : 8, height: 8,
+                            background: lightboxIdx === i ? "#ff3c1f" : "rgba(255,255,255,0.25)",
+                            border:"none", cursor:"pointer", padding:0,
+                            transition:"all .3s",
+                          }}
+                        />
+                      ))}
+                      <span style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", marginLeft: 14, letterSpacing: 1 }}>
+                        {String(lightboxIdx + 1).padStart(2,"0")} / {String(total).padStart(2,"0")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }
