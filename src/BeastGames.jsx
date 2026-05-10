@@ -102,7 +102,7 @@ const testimonials = [
   { quote: "They accepted the challenge with tireless enthusiasm and talent, and the results were fantastic. Very few compromises that still capture wonder.", author: "Creative Director", role: "Adventure Game Studio" },
 ];
 
-const marqueeItems = ["3D CHARACTERS", "ENVIRONMENT DESIGN", "ANIMATION & RIGGING" ];
+const marqueeItems = ["3D CHARACTER ART", "3D STYLIZED CHARACTER", "REAL-TIME HAIRS", "PROPS & ACCESSORIES", "COLLECTIBLES", "CLOTHING AND SIMULATION"];
 
 /* ===== Centered container component for widescreen ===== */
 const Container = ({ children, style = {}, full = false }) => (
@@ -258,10 +258,11 @@ export default function BeastGamesInteractive() {
           {isDesktop ? (
             <div style={{ display:"flex", gap: isWide ? 48 : 36, alignItems:"center" }}>
               {[
+                { label: "about", target: "about" },
                 { label: "services", target: "services" },
                 { label: "portfolio", target: "portfolio" },
                 { label: "process", target: "process" },
-                { label: "Clients", target: "testimonials" },
+                // { label: "Clients", target: "testimonials" },
                 { label: "Careers", target: "contact" },
               ].map(({ label, target }) => (
                 <a key={label} onClick={() => scrollTo(target)} style={{
@@ -274,7 +275,7 @@ export default function BeastGamesInteractive() {
               ))}
               <button onClick={() => scrollTo("contact")} style={{
                 fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".8rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
-                padding: isWide ? "14px 36px" : "12px 28px", border:"1px solid #ff3c1f", color:"#ff3c1f", background:"transparent", cursor:"pointer", transition:"all .3s"
+                padding: isWide ? "14px 36px" : "12px 28px", border:"1px solid #ff3c1f", color:"#ff3c1f", background:"transparent", cursor:"pointer", transition:"all .3s",
               }}
                 onMouseEnter={e => { e.target.style.background="linear-gradient(135deg,#ff3c1f,#ff6b1a)"; e.target.style.color="#fff"; e.target.style.borderColor="transparent"; }}
                 onMouseLeave={e => { e.target.style.background="transparent"; e.target.style.color="#ff3c1f"; e.target.style.borderColor="#ff3c1f"; }}>
@@ -307,10 +308,11 @@ export default function BeastGamesInteractive() {
             overflowY:"auto", WebkitOverflowScrolling:"touch"
           }}>
             {[
+              { label: "about", target: "about" },
               { label: "services", target: "services" },
               { label: "portfolio", target: "portfolio" },
               { label: "process", target: "process" },
-              { label: "Clients", target: "testimonials" },
+              // { label: "Clients", target: "testimonials" },
               { label: "Careers", target: "contact" },
               { label: "contact", target: "contact" },
             ].map(({ label, target }, i) => (
@@ -328,7 +330,7 @@ export default function BeastGamesInteractive() {
                 fontFamily:"'Exo 2',sans-serif", fontSize:".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
                 padding:"14px 24px", background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer", width:"100%",
               }}>
-                Start a Project
+                Get in Touch
               </button>
             </div>
           </div>
@@ -460,7 +462,7 @@ export default function BeastGamesInteractive() {
       {/* ===== MARQUEE ===== */}
       <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", borderBottom:"1px solid rgba(255,255,255,0.06)", padding: isMobile ? "10px 0" : isWide ? "28px 0" : "20px 0", overflow:"hidden", background:"#101018" }}>
         <div style={{ display:"flex", gap: isMobile ? 20 : isWide ? 80 : 60, animation:"marquee 30s linear infinite", width:"max-content" }}>
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? ".8rem" : isWide ? "1.6rem" : "1.3rem", letterSpacing: isMobile ? 1.5 : isWide ? 5 : 3, color:"#5a5a6a", whiteSpace:"nowrap", display:"flex", alignItems:"center", gap: isMobile ? 10 : isWide ? 36 : 24 }}>
               {item}<span style={{ fontSize: isWide ? ".6rem" : ".4rem", color:"#ff3c1f" }}>◆</span>
             </span>
@@ -640,8 +642,8 @@ export default function BeastGamesInteractive() {
         </Container>
       </section>
 
-      {/* ===== TESTIMONIALS ===== */}
-      <section id="testimonials" style={{ padding:`${sectionVPad}px ${pad}px`, position:"relative", overflow:"hidden", ...wrapStyle }}>
+      {/* ===== TESTIMONIALS (hidden) ===== */}
+      <section id="testimonials" style={{ display:"none" }}>
         <div style={{ position:"absolute", top:-200, right:-200, width: isWide ? 900 : 600, height: isWide ? 900 : 600, borderRadius:"50%", background:"radial-gradient(circle,rgba(255,60,31,0.04),transparent 70%)" }} />
         <Container style={{ position:"relative", zIndex:2 }}>
           <FadeUp><div style={labelStyle}><span style={{ width: isWide ? 36 : 20, height:1, background:"#ff3c1f", display:"inline-block" }} />Client Stories</div></FadeUp>
@@ -707,16 +709,28 @@ export default function BeastGamesInteractive() {
           <FadeUp delay={0.1}><h2 style={{ ...headingStyle, marginBottom: isWide ? 20 : 14 }}>Ready to Start<br />Your Next Project?</h2></FadeUp>
           <FadeUp delay={0.12}><p style={{ fontSize: isMobile ? ".88rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.7, color:"#8a8a9a", maxWidth: isWide ? 600 : 500, margin:`0 auto ${isMobile ? 28 : isWide ? 56 : 48}px` }}>Whether you need a full art team or specialized support, we'll bring your vision to life with world-class quality.</p></FadeUp>
           <FadeUp delay={0.15}>
-            <button onClick={() => scrollTo("contact")} style={{
-              fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
-              padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
-              background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer",
-              width: isMobile ? "100%" : "auto", maxWidth:300, transition:"all .3s",
-            }}
-              onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.boxShadow="0 8px 30px rgba(255,60,31,0.35)"; }}}
-              onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.boxShadow="none"; }}>
-              Contact Us
-            </button>
+            <div style={{ display:"flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 16, justifyContent:"center", alignItems:"center" }}>
+              <a href="mailto:beastgameinteractive@gmail.com" style={{
+                fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
+                padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
+                background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer",
+                width: isMobile ? "100%" : "auto", transition:"all .3s", textDecoration:"none", display:"inline-block", textAlign:"center",
+              }}
+                onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.boxShadow="0 8px 30px rgba(255,60,31,0.35)"; }}}
+                onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.boxShadow="none"; }}>
+                Contact Us
+              </a>
+              <a href="mailto:hr@beastgame.co" style={{
+                fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
+                padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
+                background:"transparent", color:"#f0eee9", border:"1px solid rgba(255,255,255,0.18)", cursor:"pointer",
+                width: isMobile ? "100%" : "auto", transition:"all .3s", textDecoration:"none", display:"inline-block", textAlign:"center",
+              }}
+                onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.borderColor="#f0eee9"; }}}
+                onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.borderColor="rgba(255,255,255,0.18)"; }}>
+                Join Us
+              </a>
+            </div>
           </FadeUp>
         </Container>
       </section>
