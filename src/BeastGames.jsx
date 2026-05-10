@@ -42,12 +42,12 @@ const FadeUp = ({ children, delay = 0 }) => {
 };
 
 const services = [
-  { icon: "🦾", title: "3D Character Art", desc: "High-poly and game-ready AAA characters with sharp anatomy, sculpting, and texture work optimized for real-time engines.", num: "01" },
-  { icon: "🎭", title: "3D Stylized Character", desc: "Stylized character creation across genres — from cel-shaded heroes to mobile-friendly forms with strong silhouettes.", num: "02" },
-  { icon: "💇", title: "Real-Time Hairs", desc: "Optimized hair cards, grooms, and real-time hair pipelines for engine performance without sacrificing fidelity.", num: "03" },
-  { icon: "🗡️", title: "Props & Accessories", desc: "Hero props, weapons, gear, and detail accessories built to match character pipelines and world-building.", num: "04" },
-  { icon: "💎", title: "Collectibles", desc: "Trophy assets, rare-tier collectibles, and showcase pieces designed for in-game display and high-detail closeups.", num: "05" },
-  { icon: "🧥", title: "Clothing and Simulation", desc: "Marvelous Designer-driven garments, real-time cloth simulation, and dynamic outfits ready for engine use.", num: "06" },
+  { icon: "🦾", title: "3D Character Art", desc: "High-poly and game-ready AAA characters with sharp anatomy, sculpting, and texture work optimized for real-time engines.", num: "01", img: svc3dCharacter },
+  { icon: "🎭", title: "3D Stylized Character", desc: "Stylized character creation across genres — from cel-shaded heroes to mobile-friendly forms with strong silhouettes.", num: "02", img: svcStylized },
+  { icon: "💇", title: "Real-Time Hairs", desc: "Optimized hair cards, grooms, and real-time hair pipelines for engine performance without sacrificing fidelity.", num: "03", img: svcHair },
+  { icon: "🗡️", title: "Props & Accessories", desc: "Hero props, weapons, gear, and detail accessories built to match character pipelines and world-building.", num: "04", img: svcProps },
+  { icon: "💎", title: "Collectibles", desc: "Trophy assets, rare-tier collectibles, and showcase pieces designed for in-game display and high-detail closeups.", num: "05", img: svcCollectibles },
+  { icon: "🧥", title: "Clothing and Simulation", desc: "Marvelous Designer-driven garments, real-time cloth simulation, and dynamic outfits ready for engine use.", num: "06", img: svcCloth },
 ];
 
 import hp1 from "./assets/hp1.png";
@@ -56,16 +56,26 @@ import sh2 from "./assets/2.png";
 import img26 from "./assets/26.jpg";
 import img11 from "./assets/11.jpg";
 
-import slide1 from "./assets/slide 1.webp";
-import slide2 from "./assets/slide 2.webp";
-import slide3 from "./assets/slide 3.webp";
-import slide4 from "./assets/slide 4.webp";
-import slide5 from "./assets/slide 5.webp";
+import svc3dCharacter from "./assets/services/Services/3d Character Art.webp";
+import svcStylized from "./assets/services/Services/3d Stylized Art.webp";
+import svcHair from "./assets/services/Services/3d RealTime Hair.webp";
+import svcProps from "./assets/services/Services/Props & Accessories.webp";
+import svcCollectibles from "./assets/services/Services/Collectibles.webp";
+import svcCloth from "./assets/services/Services/Cloth & Simulation.webp";
+
+import hero1 from "./assets/hero/WebP/Image_1.webp";
+import hero2 from "./assets/hero/WebP/Image_2.webp";
+import hero3 from "./assets/hero/WebP/Image_3.webp";
+import hero3_5 from "./assets/hero/WebP/Image_3.5.webp";
+import hero4 from "./assets/hero/WebP/Image_4.webp";
+import hero5 from "./assets/hero/WebP/Image_5.webp";
+import hero6 from "./assets/hero/WebP/Image_6.webp";
+import hero7 from "./assets/hero/WebP/Image_7.webp";
 
 import logo from "./assets/logo.jpg";
 
 // Hero slideshow images — swap/add entries here as new images arrive.
-const heroSlides = [slide1, slide2, slide3, slide4, slide5];
+const heroSlides = [hero1, hero2, hero3, hero3_5, hero4, hero5, hero6, hero7];
 
 // Add per-item `images` arrays for the carousel modal — swap in real images per discipline.
 const portfolioItems = [
@@ -498,32 +508,49 @@ export default function BeastGamesInteractive() {
                   onMouseEnter={() => setHoveredService(i)}
                   onMouseLeave={() => setHoveredService(null)}
                   style={{
-                    background: hoveredService === i ? "rgba(20,20,31,0.9)" : "#14141f",
+                    background: "#14141f",
                     padding: isMobile ? "24px 16px" : isWide ? "56px 44px" : "44px 32px",
                     position:"relative", overflow:"hidden", cursor:"pointer",
                     border: hoveredService === i ? "1px solid rgba(255,60,31,0.15)" : "1px solid transparent",
                     transition:"all .4s",
                     height:"100%"
                   }}>
+                  {/* Hover background image */}
+                  {s.img && (
+                    <div style={{
+                      position:"absolute", inset:0,
+                      backgroundImage:`url(${s.img})`,
+                      backgroundSize:"cover", backgroundPosition:"center",
+                      opacity: hoveredService === i ? 1 : 0,
+                      transition:"opacity .5s ease",
+                    }} />
+                  )}
+                  {/* Orange gradient slider */}
                   <div style={{
-                    position:"absolute", top:0, left:0, width:"100%", height:3,
-                    background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)",
+                    position:"absolute", inset:0,
+                    background:"linear-gradient(135deg,rgba(255,60,31,0.55),rgba(255,107,26,0.45))",
                     transform: hoveredService === i ? "scaleX(1)" : "scaleX(0)",
-                    transformOrigin:"left", transition:"transform .4s",
-                    height:"100%"
-                    
-                  }}
-                  id="123" />
-                  <div style={{ position:"absolute", top: isWide ? 16 : 10, right: isWide ? 20 : 12, fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "4.5rem" : "3.5rem", color:"rgba(255,255,255,0.03)" }}>{s.num}</div>
+                    transformOrigin:"left", transition:"transform .45s cubic-bezier(0.22,1,0.36,1)",
+                  }} />
+                  {/* Dark overlay so text stays readable */}
                   <div style={{
-                    width: isMobile ? 36 : isWide ? 56 : 48, height: isMobile ? 36 : isWide ? 56 : 48,
-                    display:"flex", alignItems:"center", justifyContent:"center",
-                    fontSize: isMobile ? "1.1rem" : isWide ? "1.7rem" : "1.4rem",
-                    marginBottom: isMobile ? 12 : isWide ? 32 : 24,
-                    background:"rgba(255,60,31,0.08)", border:"1px solid rgba(255,60,31,0.12)", color:"#ff3c1f"
-                  }}>{s.icon}</div>
-                  <h3 style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".9rem" : isWide ? "1.25rem" : "1.1rem", fontWeight:700, letterSpacing:.5, marginBottom: isMobile ? 8 : isWide ? 18 : 14 }}>{s.title}</h3>
-                  <p style={{ fontSize: isMobile ? ".8rem" : isWide ? "1.02rem" : ".92rem", lineHeight:1.65, color:"#8a8a9a" }}>{s.desc}</p>
+                    position:"absolute", inset:0,
+                    background:"linear-gradient(135deg, rgba(10,10,15,0.55) 0%, rgba(10,10,15,0.3) 100%)",
+                    opacity: hoveredService === i ? 1 : 0,
+                    transition:"opacity .5s ease",
+                  }} />
+                  <div style={{ position:"relative", zIndex:1 }}>
+                    <div style={{ position:"absolute", top: isWide ? 16 : 10, right: isWide ? 20 : 12, fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "4.5rem" : "3.5rem", color:"rgba(255,255,255,0.06)" }}>{s.num}</div>
+                    <div style={{
+                      width: isMobile ? 36 : isWide ? 56 : 48, height: isMobile ? 36 : isWide ? 56 : 48,
+                      display:"flex", alignItems:"center", justifyContent:"center",
+                      fontSize: isMobile ? "1.1rem" : isWide ? "1.7rem" : "1.4rem",
+                      marginBottom: isMobile ? 12 : isWide ? 32 : 24,
+                      background:"rgba(255,60,31,0.08)", border:"1px solid rgba(255,60,31,0.12)", color:"#ff3c1f"
+                    }}>{s.icon}</div>
+                    <h3 style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".9rem" : isWide ? "1.25rem" : "1.1rem", fontWeight:700, letterSpacing:.5, marginBottom: isMobile ? 8 : isWide ? 18 : 14 }}>{s.title}</h3>
+                    <p style={{ fontSize: isMobile ? ".8rem" : isWide ? "1.02rem" : ".92rem", lineHeight:1.65, color:"#8a8a9a" }}>{s.desc}</p>
+                  </div>
                 </div>
               </FadeUp>
             ))}
