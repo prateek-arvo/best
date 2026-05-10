@@ -124,6 +124,7 @@ export default function BeastGamesInteractive() {
   const [hoveredPortfolio, setHoveredPortfolio] = useState(null);
   const [openPortfolio, setOpenPortfolio] = useState(null); // index of open project or null
   const [lightboxIdx, setLightboxIdx] = useState(null); // index of image in carousel or null
+  const [emailPopover, setEmailPopover] = useState(null); // "contact" | "joinus" | null
   const [heroSlide, setHeroSlide] = useState(0);
   const { w } = useWindowSize();
 
@@ -169,6 +170,13 @@ export default function BeastGamesInteractive() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [openPortfolio, lightboxIdx]);
+
+  useEffect(() => {
+    if (!emailPopover) return;
+    const close = () => setEmailPopover(null);
+    window.addEventListener("click", close);
+    return () => window.removeEventListener("click", close);
+  }, [emailPopover]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
@@ -281,6 +289,26 @@ export default function BeastGamesInteractive() {
                 onMouseLeave={e => { e.target.style.background="transparent"; e.target.style.color="#ff3c1f"; e.target.style.borderColor="#ff3c1f"; }}>
                 Get in Touch
               </button>
+
+              {/* Social icons */}
+              <div style={{ display:"flex", gap: isWide ? 16 : 12, alignItems:"center", borderLeft:"1px solid rgba(255,255,255,0.08)", paddingLeft: isWide ? 24 : 18 }}>
+                <a href="https://www.artstation.com/user-157565" target="_blank" rel="noreferrer" aria-label="ArtStation"
+                  style={{ color:"#8a8a9a", transition:"color .3s", display:"flex", alignItems:"center" }}
+                  onMouseEnter={e => e.currentTarget.style.color="#f0eee9"}
+                  onMouseLeave={e => e.currentTarget.style.color="#8a8a9a"}>
+                  <svg width={isWide ? 22 : 18} height={isWide ? 22 : 18} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.344L21.612 22.48A2.427 2.427 0 0 0 24 20.064zm-11.52-5.889L7.83 4.28 2.569 13.835h9.911z"/>
+                  </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/beast-game-in-719207257?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noreferrer" aria-label="LinkedIn"
+                  style={{ color:"#8a8a9a", transition:"color .3s", display:"flex", alignItems:"center" }}
+                  onMouseEnter={e => e.currentTarget.style.color="#f0eee9"}
+                  onMouseLeave={e => e.currentTarget.style.color="#8a8a9a"}>
+                  <svg width={isWide ? 22 : 18} height={isWide ? 22 : 18} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           ) : (
             <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" style={{
@@ -710,26 +738,77 @@ export default function BeastGamesInteractive() {
           <FadeUp delay={0.12}><p style={{ fontSize: isMobile ? ".88rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.7, color:"#8a8a9a", maxWidth: isWide ? 600 : 500, margin:`0 auto ${isMobile ? 28 : isWide ? 56 : 48}px` }}>Whether you need a full art team or specialized support, we'll bring your vision to life with world-class quality.</p></FadeUp>
           <FadeUp delay={0.15}>
             <div style={{ display:"flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 16, justifyContent:"center", alignItems:"center" }}>
-              <a href="https://mail.google.com/mail/?view=cm&to=beastgameinteractive@gmail.com" target="_blank" rel="noreferrer" style={{
-                fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
-                padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
-                background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer",
-                width: isMobile ? "100%" : "auto", transition:"all .3s", textDecoration:"none", display:"inline-block", textAlign:"center",
-              }}
-                onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.boxShadow="0 8px 30px rgba(255,60,31,0.35)"; }}}
-                onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.boxShadow="none"; }}>
-                Contact Us
-              </a>
-              <a href="https://mail.google.com/mail/?view=cm&to=hr@beastgame.co" target="_blank" rel="noreferrer" style={{
-                fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
-                padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
-                background:"transparent", color:"#f0eee9", border:"1px solid rgba(255,255,255,0.18)", cursor:"pointer",
-                width: isMobile ? "100%" : "auto", transition:"all .3s", textDecoration:"none", display:"inline-block", textAlign:"center",
-              }}
-                onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.borderColor="#f0eee9"; }}}
-                onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.borderColor="rgba(255,255,255,0.18)"; }}>
-                Join Us
-              </a>
+              {/* Contact Us */}
+              <div style={{ position:"relative", width: isMobile ? "100%" : "auto" }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setEmailPopover(emailPopover === "contact" ? null : "contact"); }}
+                  style={{
+                    fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
+                    padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
+                    background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer",
+                    width: isMobile ? "100%" : "auto", transition:"all .3s",
+                  }}
+                  onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.boxShadow="0 8px 30px rgba(255,60,31,0.35)"; }}}
+                  onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.boxShadow="none"; }}>
+                  Contact Us
+                </button>
+                {emailPopover === "contact" && (
+                  <div onClick={e => e.stopPropagation()} style={{
+                    position:"absolute", top:"calc(100% + 8px)", left:"50%", transform:"translateX(-50%)",
+                    background:"#14141f", border:"1px solid rgba(255,255,255,0.1)",
+                    minWidth:220, zIndex:10, animation:"fadeIn .2s ease",
+                  }}>
+                    <a href="mailto:beastgameinteractive@gmail.com" onClick={() => setEmailPopover(null)}
+                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s", borderBottom:"1px solid rgba(255,255,255,0.06)" }}
+                      onMouseEnter={e => { e.target.style.color="#f0eee9"; e.target.style.background="rgba(255,255,255,0.04)"; }}
+                      onMouseLeave={e => { e.target.style.color="#8a8a9a"; e.target.style.background="transparent"; }}>
+                      ✉ Email App
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&to=beastgameinteractive@gmail.com" target="_blank" rel="noreferrer" onClick={() => setEmailPopover(null)}
+                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s" }}
+                      onMouseEnter={e => { e.target.style.color="#f0eee9"; e.target.style.background="rgba(255,255,255,0.04)"; }}
+                      onMouseLeave={e => { e.target.style.color="#8a8a9a"; e.target.style.background="transparent"; }}>
+                      ✉ Open in Gmail
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Join Us */}
+              <div style={{ position:"relative", width: isMobile ? "100%" : "auto" }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setEmailPopover(emailPopover === "joinus" ? null : "joinus"); }}
+                  style={{
+                    fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
+                    padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
+                    background:"transparent", color:"#f0eee9", border:"1px solid rgba(255,255,255,0.18)", cursor:"pointer",
+                    width: isMobile ? "100%" : "auto", transition:"all .3s",
+                  }}
+                  onMouseEnter={e => { if(isDesktop){ e.target.style.transform="translateY(-2px)"; e.target.style.borderColor="#f0eee9"; }}}
+                  onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.borderColor="rgba(255,255,255,0.18)"; }}>
+                  Join Us
+                </button>
+                {emailPopover === "joinus" && (
+                  <div onClick={e => e.stopPropagation()} style={{
+                    position:"absolute", top:"calc(100% + 8px)", left:"50%", transform:"translateX(-50%)",
+                    background:"#14141f", border:"1px solid rgba(255,255,255,0.1)",
+                    minWidth:220, zIndex:10, animation:"fadeIn .2s ease",
+                  }}>
+                    <a href="mailto:hr@beastgame.co" onClick={() => setEmailPopover(null)}
+                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s", borderBottom:"1px solid rgba(255,255,255,0.06)" }}
+                      onMouseEnter={e => { e.target.style.color="#f0eee9"; e.target.style.background="rgba(255,255,255,0.04)"; }}
+                      onMouseLeave={e => { e.target.style.color="#8a8a9a"; e.target.style.background="transparent"; }}>
+                      ✉ Email App
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&to=hr@beastgame.co" target="_blank" rel="noreferrer" onClick={() => setEmailPopover(null)}
+                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s" }}
+                      onMouseEnter={e => { e.target.style.color="#f0eee9"; e.target.style.background="rgba(255,255,255,0.04)"; }}
+                      onMouseLeave={e => { e.target.style.color="#8a8a9a"; e.target.style.background="transparent"; }}>
+                      ✉ Open in Gmail
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           </FadeUp>
         </Container>
