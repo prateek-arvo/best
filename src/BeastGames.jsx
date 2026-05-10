@@ -710,7 +710,7 @@ export default function BeastGamesInteractive() {
           <FadeUp delay={0.12}><p style={{ fontSize: isMobile ? ".88rem" : isWide ? "1.15rem" : "1.05rem", lineHeight:1.7, color:"#8a8a9a", maxWidth: isWide ? 600 : 500, margin:`0 auto ${isMobile ? 28 : isWide ? 56 : 48}px` }}>Whether you need a full art team or specialized support, we'll bring your vision to life with world-class quality.</p></FadeUp>
           <FadeUp delay={0.15}>
             <div style={{ display:"flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 16, justifyContent:"center", alignItems:"center" }}>
-              <a href="mailto:beastgameinteractive@gmail.com" style={{
+              <a href="https://mail.google.com/mail/?view=cm&to=beastgameinteractive@gmail.com" target="_blank" rel="noreferrer" style={{
                 fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
                 padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
                 background:"linear-gradient(135deg,#ff3c1f,#ff6b1a)", color:"#fff", border:"none", cursor:"pointer",
@@ -720,7 +720,7 @@ export default function BeastGamesInteractive() {
                 onMouseLeave={e => { e.target.style.transform="translateY(0)"; e.target.style.boxShadow="none"; }}>
                 Contact Us
               </a>
-              <a href="mailto:hr@beastgame.co" style={{
+              <a href="https://mail.google.com/mail/?view=cm&to=hr@beastgame.co" target="_blank" rel="noreferrer" style={{
                 fontFamily:"'Exo 2',sans-serif", fontSize: isWide ? ".85rem" : ".78rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase",
                 padding: isMobile ? "14px 32px" : isWide ? "20px 52px" : "16px 40px",
                 background:"transparent", color:"#f0eee9", border:"1px solid rgba(255,255,255,0.18)", cursor:"pointer",
