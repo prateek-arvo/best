@@ -233,6 +233,7 @@ export default function BeastGamesInteractive() {
         @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
         @keyframes slideIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes heroZoom { from{transform:scale(1.02)} to{transform:scale(1.1)} }
         .no-scrollbar::-webkit-scrollbar{display:none}
         .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
       `}</style>
@@ -382,6 +383,9 @@ export default function BeastGamesInteractive() {
             backgroundPosition:"center",
             opacity: heroSlide === i ? 1 : 0,
             transition:"opacity 1.4s ease-in-out",
+            transform: "scale(1.1)",
+            animation: heroSlide === i ? "heroZoom 5s ease-out forwards" : "none",
+            transformOrigin:"center center",
           }} />
         ))}
         {/* Dark overlay for text readability */}
