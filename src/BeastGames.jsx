@@ -144,6 +144,52 @@ const Container = ({ children, style = {}, full = false }) => (
   </div>
 );
 
+const LightboxSlide = ({ src, active }) => {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div style={{ position:"absolute", inset:0, opacity: active ? 1 : 0, transition:"opacity .4s ease" }}>
+      <img src={src} alt="" onLoad={() => setLoaded(true)} onError={() => setLoaded(true)} style={{ display:"none" }} />
+      <div style={{ position:"absolute", inset:0, backgroundImage:`url(${src})`, backgroundSize:"contain", backgroundPosition:"center", backgroundRepeat:"no-repeat", opacity: loaded ? 1 : 0, transition:"opacity .5s ease" }} />
+      {active && !loaded && (
+        <div style={{ position:"absolute", inset:0, overflow:"hidden" }}>
+          <div style={{ position:"absolute", top:0, bottom:0, width:"35%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.045),transparent)", animation:"shimmer 1.6s ease-in-out infinite" }} />
+          <div style={{ position:"absolute", left:0, right:0, height:1, background:"linear-gradient(90deg,transparent,rgba(255,60,31,0.22),transparent)", animation:"scanline 2.4s linear infinite" }} />
+          <div style={{ position:"absolute", top:20, left:20, width:16, height:16, borderTop:"1px solid rgba(255,60,31,0.35)", borderLeft:"1px solid rgba(255,60,31,0.35)" }} />
+          <div style={{ position:"absolute", top:20, right:20, width:16, height:16, borderTop:"1px solid rgba(255,60,31,0.35)", borderRight:"1px solid rgba(255,60,31,0.35)" }} />
+          <div style={{ position:"absolute", bottom:20, left:20, width:16, height:16, borderBottom:"1px solid rgba(255,60,31,0.35)", borderLeft:"1px solid rgba(255,60,31,0.35)" }} />
+          <div style={{ position:"absolute", bottom:20, right:20, width:16, height:16, borderBottom:"1px solid rgba(255,60,31,0.35)", borderRight:"1px solid rgba(255,60,31,0.35)" }} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ImageTile = ({ src, aspect = "4 / 3", onClick, onMouseEnter, onMouseLeave, children, style = {} }) => {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{ position:"relative", overflow:"hidden", cursor: onClick ? "pointer" : "default", aspectRatio: aspect, background:"#0d0d18", ...style }}
+    >
+      <img src={src} alt="" onLoad={() => setLoaded(true)} onError={() => setLoaded(true)} style={{ display:"none" }} />
+      {/* Image layer */}
+      <div style={{ position:"absolute", inset:0, backgroundImage:`url(${src})`, backgroundSize:"cover", backgroundPosition:"center", opacity: loaded ? 1 : 0, transition:"opacity .55s ease" }} />
+      {/* Skeleton overlay */}
+      <div style={{ position:"absolute", inset:0, background:"#0d0d18", opacity: loaded ? 0 : 1, transition:"opacity .5s ease", pointerEvents:"none", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:0, bottom:0, width:"35%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.045),transparent)", animation:"shimmer 1.6s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", left:0, right:0, height:1, background:"linear-gradient(90deg,transparent,rgba(255,60,31,0.22),transparent)", animation:"scanline 2.4s linear infinite" }} />
+        <div style={{ position:"absolute", top:12, left:12, width:14, height:14, borderTop:"1px solid rgba(255,60,31,0.35)", borderLeft:"1px solid rgba(255,60,31,0.35)" }} />
+        <div style={{ position:"absolute", top:12, right:12, width:14, height:14, borderTop:"1px solid rgba(255,60,31,0.35)", borderRight:"1px solid rgba(255,60,31,0.35)" }} />
+        <div style={{ position:"absolute", bottom:12, left:12, width:14, height:14, borderBottom:"1px solid rgba(255,60,31,0.35)", borderLeft:"1px solid rgba(255,60,31,0.35)" }} />
+        <div style={{ position:"absolute", bottom:12, right:12, width:14, height:14, borderBottom:"1px solid rgba(255,60,31,0.35)", borderRight:"1px solid rgba(255,60,31,0.35)" }} />
+      </div>
+      {children}
+    </div>
+  );
+};
+
 export default function BeastGamesInteractive() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -154,6 +200,7 @@ export default function BeastGamesInteractive() {
   const [lightboxIdx, setLightboxIdx] = useState(null);   // index of image in carousel or null
   const [emailPopover, setEmailPopover] = useState(null); // "contact" | "joinus" | null
   const [heroSlide, setHeroSlide] = useState(0);
+  const [portfolioClosing, setPortfolioClosing] = useState(false);
   const { w } = useWindowSize();
 
   const isMobile = w < 768;
@@ -173,6 +220,7 @@ export default function BeastGamesInteractive() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+
   useEffect(() => {
     const lock = menuOpen || openPortfolio !== null || openProject !== null;
     document.body.style.overflow = lock ? "hidden" : "";
@@ -182,6 +230,16 @@ export default function BeastGamesInteractive() {
       document.documentElement.style.overflow = "";
     };
   }, [menuOpen, openPortfolio, openProject]);
+
+  const doClosePortfolio = useCallback(() => {
+    setPortfolioClosing(true);
+    setTimeout(() => {
+      setOpenPortfolio(null);
+      setOpenProject(null);
+      setLightboxIdx(null);
+      setPortfolioClosing(false);
+    }, 320);
+  }, []);
 
   useEffect(() => {
     if (openPortfolio === null) return;
@@ -194,7 +252,7 @@ export default function BeastGamesInteractive() {
       if (e.key === "Escape") {
         if (lightboxIdx !== null) setLightboxIdx(null);
         else if (openProject !== null) setOpenProject(null);
-        else { setOpenPortfolio(null); setOpenProject(null); }
+        else doClosePortfolio();
       } else if (lightboxIdx !== null && total > 1) {
         if (e.key === "ArrowRight") setLightboxIdx((c) => (c + 1) % total);
         else if (e.key === "ArrowLeft") setLightboxIdx((c) => (c - 1 + total) % total);
@@ -202,7 +260,7 @@ export default function BeastGamesInteractive() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [openPortfolio, openProject, lightboxIdx]);
+  }, [openPortfolio, openProject, lightboxIdx, doClosePortfolio]);
 
   useEffect(() => {
     if (!emailPopover) return;
@@ -267,6 +325,14 @@ export default function BeastGamesInteractive() {
         @keyframes slideIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         @keyframes heroZoom { from{transform:scale(1.02)} to{transform:scale(1.1)} }
+        @keyframes shimmer { 0%{transform:translateX(-100%) skewX(-15deg)} 100%{transform:translateX(400%) skewX(-15deg)} }
+        @keyframes tileReveal { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
+        @keyframes scanline { 0%{top:-10%} 100%{top:110%} }
+        @keyframes modalIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes modalOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(14px)} }
+        @keyframes contentIn { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes gridItemIn { from{opacity:0;transform:translateY(18px) scale(0.96)} to{opacity:1;transform:translateY(0) scale(1)} }
+        @keyframes lightboxIn { from{opacity:0;transform:scale(0.97)} to{opacity:1;transform:scale(1)} }
         .no-scrollbar::-webkit-scrollbar{display:none}
         .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
       `}</style>
@@ -643,15 +709,15 @@ export default function BeastGamesInteractive() {
                 const colSpan = isMobile ? 1 : ((i === 0 || p.spanCol) ? 2 : 1);
                 const rowSpan = isMobile ? 1 : (i === 0 ? 2 : 1);
                 return (
-                  <div key={i}
+                  <ImageTile
+                    key={i}
+                    src={p.bg}
+                    aspect={undefined}
                     onMouseEnter={() => setHoveredPortfolio(i)}
                     onMouseLeave={() => setHoveredPortfolio(null)}
                     onClick={() => { setOpenPortfolio(i); setOpenProject(null); setLightboxIdx(null); }}
-                    style={{
-                      position:"relative", overflow:"hidden", cursor:"pointer",
-                      backgroundImage: `url(${p.bg})`, backgroundSize:"cover", backgroundPosition:"center",
-                      gridColumn:`span ${colSpan}`, gridRow:`span ${rowSpan}`,
-                    }}>
+                    style={{ gridColumn:`span ${colSpan}`, gridRow:`span ${rowSpan}`, aspectRatio: undefined }}
+                  >
                     <div style={{
                       position:"absolute", inset:0,
                       background:"linear-gradient(to top,rgba(10,10,15,0.95) 0%,rgba(10,10,15,0) 60%)",
@@ -659,11 +725,12 @@ export default function BeastGamesInteractive() {
                       transition:"opacity .4s",
                       display:"flex", flexDirection:"column", justifyContent:"flex-end",
                       padding: isMobile ? 14 : isWide ? 36 : 28,
+                      zIndex:1,
                     }}>
                       <span style={{ fontSize: isWide ? ".8rem" : ".65rem", color:"#ff3c1f", fontWeight:600, letterSpacing:1, textTransform:"uppercase" }}>{p.tag}</span>
                       <h4 style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".82rem" : isWide ? "1.15rem" : "1rem", fontWeight:700, marginTop: isWide ? 6 : 3 }}>{p.title}</h4>
                     </div>
-                  </div>
+                  </ImageTile>
                 );
               })}
             </div>
@@ -955,13 +1022,13 @@ export default function BeastGamesInteractive() {
 
         return (
           <div
-            onClick={() => { if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else setOpenPortfolio(null); }}
+            onClick={() => { if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else doClosePortfolio(); }}
             style={{
               position:"fixed", inset:0, zIndex:1000,
               background: lightboxIdx !== null ? "#000" : "#0a0a0f",
               overflowY: lightboxIdx !== null ? "hidden" : "auto",
               overscrollBehavior:"contain",
-              animation:"fadeIn .3s ease",
+              animation: portfolioClosing ? "modalOut .32s cubic-bezier(0.4,0,1,1) forwards" : "modalIn .38s cubic-bezier(0.22,1,0.36,1) forwards",
               display: lightboxIdx !== null ? "flex" : "block",
               alignItems: lightboxIdx !== null ? "center" : undefined,
               justifyContent: lightboxIdx !== null ? "center" : undefined,
@@ -970,7 +1037,7 @@ export default function BeastGamesInteractive() {
 
             {/* Close / back button */}
             <button
-              onClick={(e) => { e.stopPropagation(); if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else setOpenPortfolio(null); }}
+              onClick={(e) => { e.stopPropagation(); if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else doClosePortfolio(); }}
               aria-label="Close"
               style={{
                 position:"fixed", top: isMobile ? 14 : 24, right: isMobile ? 14 : 24,
@@ -998,10 +1065,12 @@ export default function BeastGamesInteractive() {
             {lightboxIdx === null && (
               <div
                 onClick={e => e.stopPropagation()}
+                key={openProject !== null ? `proj-${openProject}` : `cat-${openPortfolio}`}
                 style={{
                   width:"100%", maxWidth: 1400, margin:"0 auto",
                   padding: isMobile ? "60px 16px 40px" : "80px 40px 60px",
                   display:"flex", flexDirection:"column", gap: isMobile ? 24 : 40,
+                  animation: portfolioClosing ? "none" : "contentIn .42s cubic-bezier(0.22,1,0.36,1) forwards",
                 }}
               >
                 <div style={{ textAlign:"center" }}>
@@ -1025,19 +1094,13 @@ export default function BeastGamesInteractive() {
                     gap: isMobile ? 12 : 20,
                   }}>
                     {galleryItems.map((g, i) => (
-                      <div
+                      <ImageTile
                         key={i}
+                        src={g.src}
                         onClick={() => hasProjects ? (setOpenProject(i), setLightboxIdx(null)) : setLightboxIdx(g.idx ?? i)}
-                        style={{
-                          position:"relative", overflow:"hidden", cursor:"pointer",
-                          aspectRatio:"4 / 3",
-                          backgroundImage:`url(${g.src})`,
-                          backgroundSize:"cover",
-                          backgroundPosition:"center",
-                          transition:"transform .4s",
-                        }}
                         onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
                         onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
+                        style={{ transition:"transform .4s", animation:`gridItemIn .5s cubic-bezier(0.22,1,0.36,1) ${i * 0.055}s both` }}
                       >
                         {g.label && (
                           <div style={{
@@ -1047,6 +1110,7 @@ export default function BeastGamesInteractive() {
                             padding: isMobile ? 12 : 20,
                             opacity: isMobile ? 1 : 0,
                             transition:"opacity .3s",
+                            zIndex:1,
                           }}
                             onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
                             onMouseLeave={e => { if (!isMobile) e.currentTarget.style.opacity = 0; }}
@@ -1054,7 +1118,7 @@ export default function BeastGamesInteractive() {
                             <span style={{ fontFamily:"'Exo 2',sans-serif", fontWeight:700, fontSize: isMobile ? ".8rem" : ".9rem", letterSpacing:.5 }}>{g.label}</span>
                           </div>
                         )}
-                      </div>
+                      </ImageTile>
                     ))}
                   </div>
                 ) : (
@@ -1065,29 +1129,23 @@ export default function BeastGamesInteractive() {
                     gap: isMobile ? 12 : 20,
                   }}>
                     {activeImages.map((src, i) => (
-                      <div
+                      <ImageTile
                         key={i}
+                        src={src}
                         onClick={() => setLightboxIdx(i)}
-                        style={{
-                          position:"relative", overflow:"hidden", cursor:"pointer",
-                          aspectRatio:"4 / 3",
-                          backgroundImage:`url(${src})`,
-                          backgroundSize:"cover",
-                          backgroundPosition:"center",
-                          transition:"transform .4s",
-                        }}
                         onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
                         onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
+                        style={{ transition:"transform .4s", animation:`gridItemIn .5s cubic-bezier(0.22,1,0.36,1) ${i * 0.05}s both` }}
                       >
                         <div style={{
                           position:"absolute", inset:0,
                           background:"linear-gradient(135deg, transparent 60%, rgba(255,60,31,0.18) 100%)",
-                          opacity: 0, transition:"opacity .3s",
+                          opacity: 0, transition:"opacity .3s", zIndex:1,
                         }}
                           onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
                           onMouseLeave={e => { e.currentTarget.style.opacity = 0; }}
                         />
-                      </div>
+                      </ImageTile>
                     ))}
                   </div>
                 )}
@@ -1100,6 +1158,7 @@ export default function BeastGamesInteractive() {
                 position:"relative", width:"100%", maxWidth: 1400,
                 height:"100%",
                 display:"flex", flexDirection:"column", gap: isMobile ? 16 : 20,
+                animation: "lightboxIn .35s cubic-bezier(0.22,1,0.36,1) forwards",
               }}>
                 <div style={{
                   position:"relative", width:"100%",
@@ -1108,15 +1167,7 @@ export default function BeastGamesInteractive() {
                   overflow:"hidden",
                 }}>
                   {activeImages.map((src, i) => (
-                    <div key={i} style={{
-                      position:"absolute", inset:0,
-                      backgroundImage:`url(${src})`,
-                      backgroundSize:"contain",
-                      backgroundPosition:"center",
-                      backgroundRepeat:"no-repeat",
-                      opacity: lightboxIdx === i ? 1 : 0,
-                      transition:"opacity .4s ease",
-                    }} />
+                    <LightboxSlide key={`${openProject}-${i}`} src={src} active={lightboxIdx === i} />
                   ))}
 
                   {total > 1 && (
