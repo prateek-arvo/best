@@ -77,11 +77,38 @@ import logo from "./assets/logo.jpg";
 // Hero slideshow images — swap/add entries here as new images arrive.
 const heroSlides = [hero1, hero2, hero3, hero3_5, hero4, hero5, hero6, hero7];
 
-// Add per-item `images` arrays for the carousel modal — swap in real images per discipline.
+const gd = (id) => `https://drive.google.com/thumbnail?id=${id}&sz=w2000`;
+
 const portfolioItems = [
-  { title: "3D Character Art", tag: "AAA Pipeline", bg: img26, span: true, images: [img26, hp1, sh2, img11] },
-  { title: "3D Stylised Art", tag: "Stylised", bg: sh2, images: [sh2, img11, sh1] },
-  { title: "Real Time Hair", tag: "Hair Grooming", bg: hp1, images: [hp1, img26, sh2] },
+  {
+    title: "3D Character Art", tag: "AAA Pipeline", bg: gd("1uKCGOBvo6uU7jqi8SoPXlBRST9msPcoF"), span: true,
+    projects: [
+      { title: "Plague Doctor", thumb: gd("1uKCGOBvo6uU7jqi8SoPXlBRST9msPcoF"), images: ["1Q2zYEZZ9zaARp1yBIBly4X8lr0iyrk0o","1jnHKqqOTE4DqPrXaHCz-CTQXJ0yQc0-_","1T1UeqH4ZrT_GwJuw_Svu3FYBbuzLohMO","15D16SyB2I5AwRneqsLMleQ6mbS4vixPC","1c9b57ruX2ryg9nzYF4CFDz-8w1xCOVkK","1ePDdWrNLdllo_UDzAZ6CPS0Dw6o-mN9p","1a8Dr8fT_xmnXAJO2sOWzlRYo_EKp-rJZ","16UpYIOvk_NjNETFhxQS5uzRMxOfn6xVG","10P6EKv9SO07jUBoXn1fKgb3aUvS8TYZt","1LuR5hTHnKz8yEHqcNMLheTTSRB8dJBt-","1crO4bJHFmPl7dmTD8BlliVZU4ri6WT9n","1f04ODme_yRnAvjs94VL7xUPIsMvYNgIT","1gULXgpoNu7720sbeyG9JqHJ1M28JluyT","17pQRx743AKnshNGd_iaw115XwaWnKk-h","1nqBZxjKNGLJ__0L5dkHOkUWyFzlGxzxv","1W_36C1dE09BbDiK-QIHVx2ri5zFNTthu"].map(gd) },
+      { title: "Street Fighter", thumb: gd("1fPLrToRthWeZJbKjwnGfLUPgqsuFHQy5"), images: ["1J3aF4qFlXqg1RplJXJg3KgOe3dXFh-hQ","1QEcERMWZxDQppSyIRziNtrxSpeEQo9bm","1ZFme0tqTmUQxpUusnGIbRhAzdvUnVa7b","1MQfzcPMB3HUb4K1kqecjoQwBagLGnlUr","150b65_xHWk8xKhS8yHiAOjMCJHaHYiMP","1EaXHrJODVe2C3yBeAIAlw4rizRiDGAMX","1IJ_Y2PuuL0IhECE5brrOf6edNbL6omrA"].map(gd) },
+      { title: "Neo", thumb: gd("1OXhXJF3Ec6ZpKQrS_l1zS4odrS-810QS"), images: ["1eU7WpKXpNppFA8ns0ceOrz8RYw1gaJ9R","1LojI_dO1XrP8oro8oxV-7-OPsX43b7vW","1d_znfsnes1ZJ692GF7W5nlaUuE89omeT","1tlLen9m6kf9IsBepJryP5LBayiQBGXZo","1-seVqX2khs-jCUw1_HlZao5jTSpm780a","1hDlwbgoeSnd_lVLckXoOIOSULGmMgbXY","1r369w7d-OFfhjhfjILGw-M55-Ds8qMiX"].map(gd) },
+      { title: "Redeemer", thumb: gd("1bGwkQr_Nl7hHD3_7xgGRk5bTMmIq3OvB"), images: ["1QXKkOGv8lUHECs5TVM-C8_2CLQHc8o0Q","1JmtkrAtjYmKbOqHj-Odc7pPiowM1V7Mo","1vEA-dFu8lXb-W-nxLsOhToBNkI7MfusH","17AqlB7swg4udXdQ0r16jFfWOkTXkMnkf","1UEE-atLscB4ocX-dUcV3qp__lCdV-YKw","1ZuCJRhxW6JRH79zsGJ2yY9joPeRFDLDP","1Ae-SuHifFpLaPj090PxbAZRK8Yoarktn","1WmE07GSAnfkt-s1jW5GRtkHnwvbmOyQD","1i9Ew5pu2FZY7gFgVm39vLfV3i_E1aJdR","1IeBXuTv8uQOuGro30T1zR-wAiMlrgTjF","1BFCfCnI1fPLp13zVNJ8SB7a5V0F84Zb1","1G2qr_1qBLT310-MXuNQD1EzJPBbTuVi3"].map(gd) },
+      { title: "Swedish Warrior", thumb: gd("17h7sg4TQySLun2pEI2qgB6KOebjnAbsw"), images: ["1ltNpzZjekt0x-2mpRP8uFPn-HQU7Lau1","1zXmfBsTWawD9rkKPa7OYPUv5sxYJHrEQ","1UvwF0A0rhh7oDRMIW1DGnck5mSRduF1M","16ZAg143e7HxBJRVcpuXFgtEAL53ym_S2","1g9d1tuR-ij73icZUHBsS2Kg4_zPhBSHb","1UyuDluhvimYfEed1wvd7lrC8kfnELjEX"].map(gd) },
+      { title: "Archer", thumb: gd("1gGc2SGB_Yj7-kxP8aAHv6DNYwTZyaS36"), images: ["1AQN_txW2Dp1HCAYw1z0-DtTeAGNvKE_b","1ml7BUikQ-1ZNf0onh4zVxFp2Fv3Wxuen","1Cw6-uGUX61z8HQM9QIeTpsa5lF1YnfvG","19PjvHBxrUnKJ4p3fBD3_STjz9Id2FVPr","15jNfFw3kb3gR3Tq5RSCslqE_oIWW0zam","1316SqZ1Mv5EMHkmhyhEI7atluxUWqelK","1E2L4u8wOfwoClifqEVP41iLJ_LRcJeYq","186z6xLb4_wcFHBo3W5V_ad_NyAZbMVo_","1hWBa2PPji-yX496-kjF1h_0lepAfCoUw"].map(gd) },
+      { title: "Viking Warrior", thumb: gd("14ohvsbxbhcGINDG_H-RvPX9LHKpGuHOB"), images: ["1jtba8UkmbL3QdOurSGpYReyUOckDgAbm","1GtrCXlfbbAT61f-ZrTjnOpfO8Xq_6AA7","1cwPv-VV6LqLPhqvsjWQjBoYyl7wlskUk","1KgCdfyzy-oYBDeSNEATj3CIOv-4s9baF","1Y-5ZCmuAEFqKCssEUWfAX-OTnqIt4OaF","1rmDaUKHlaJ0tw1mPxZepZnzP785jGCkB","1iBiQvb99NviEKuKI3koRF3sn7o1rlvsM","1srZYwIxvIYn7RBOagBX2tahvBRci5mHw","1GQDKQAOV_Juqx0rvlNzn83StcPqDy_75"].map(gd) },
+      { title: "Winter Outfit", thumb: gd("1cRoEhh2e8uakyuEGmAre82MdoVf9P6Au"), images: ["1gJgup2SPqrGhQfLkS3SlSLtHRP0iDib9","1p4jHB3ZLRFA421RbljFUTKVYdv4rQ2wy","1H9V96uAZuCGMUiX9VjYnEJ0Pzlsbnm1O","1MELIiEx2JUkeMdbAeip8sPB-GMXaanWD"].map(gd) },
+      { title: "WW2 Soldier", thumb: gd("1ogmKJPWSVv3BABASPM5cLiOWdxv1PISG"), images: ["1wZD5zc9jN3X98IyKxEXVPpiBbvZM5v3o","1v_yKNuXq6Wfh9FqAo2V9TXC719K7Q9FP","19HZKIS6SF2HgU41TKjNYHvrWUYsD1SGr","1GFY8rBjONjygZ_wRyxlkHL8PIhqGrMYs","1I11Ivg146Du-e0Mqx4X3HhNMtzjFbjBV","1SRFugNyte6WBLzbbQxAOwIIOatCDFCui","1y0Muj45ReXvTEm83Xrz_qEHzV7tfFxUn"].map(gd) },
+    ],
+  },
+  {
+    title: "3D Stylised Art", tag: "Stylised", bg: gd("15Wd2trUnsNlWHA_CYM7MIzOCRfJ49V4e"),
+    projects: [
+      { title: "Elephant", thumb: gd("15Wd2trUnsNlWHA_CYM7MIzOCRfJ49V4e"), images: ["10zvwevRoOrJhpQjc9ajb0-T0KM07TNgO","1APIvCDLs825-r-TuNrBYgGvihaKURJUH","1F1yx-mQ8Gz4LJGsPRzB4uzMR5PQ4ZTpk","1POYIinn0T0-pwBQOhgJb9_fJx5Ug-XcC","1qN7hu7jf8N_9MY1cYh7UYB063szl-gPG","1sIc6V3qPpmJTyKZ3faL6DfgSJeO2LgAP","1BN-TD2hSPc0xsA6K7-G3Ku_KHmT6nAPS","1N9STm6I1WHiks8-rWUQ2w8teKjHOWTP_"].map(gd) },
+      { title: "Anime 02", thumb: gd("1CC-zC60cj41iEzq3BlxlKrqdyvDlZCc_"), images: ["16-6NQ6abHdg6wamsobg2N-ojdbSZ_E_t","1BV-wWHyNSHo--Zu3HTi_NS3OH4ZVzqR4","1Yr3Ac9uzjzEo8Nvf-S9TQI-aYlS5mqYT","1px4TvqkdobhNxThZc0cPGlqrH443CcKu","1RIQmyzedl9NutKHuuXI2asBobTbrlO2h","1XWbPuWR4SfeIv0vYDoIRVUyWa21MMdRG","18vsrxvrzb7jf4OdhTet-89hjiuyCPXfp","1_8grD_Xf6x6y1MqgE-VjJZcddozcAFsm","11wpgrTj1mM_ECtbWyNofl3ZdnuXqHXPU"].map(gd) },
+      { title: "Sci-Fi Character", thumb: gd("1hgS0efiLxvGv3BXdHBBeBnf3zeVCeuOx"), images: ["18DCDECg-lZ2-5Bb8aVjRZ-Be9lQ9HOlG","1JeqMm-4a4tIyvedQBFoO4PjnlSBfDGoG","17DlkD7P0pXREfbXivPdcoOUzXQQxI9m1","1bjm544Feb4YmkQ4yuO_UETfxviPwiv4E","1rmJkSmpyhN0tQgPyuY5IOw475Ylsxl-Q","1JNeUaKbRQnd0aqQO7MtvX1JKZLK2vCxx"].map(gd) },
+      { title: "Anime", thumb: gd("1hwDKAbMpvf7FAIsdSyhoK1evgsLif52z"), images: ["1pIyfh07ssTmxjzuhFLRMoK8pscSWYGzF","1D2cT9rAO97l3_FlbpH_km-KnwTV3a1gN","1SqJtCpMK-LAInFgex2hdXJb-aluneB4L","1PqehDt5cCNMeF9tAgFOeCIIRVapVvURU","15FEs1luLyWwM0iYt1J3RpZdTSvXNh2wO","1lpJig12u-H091kh9ON_TriOS13x_49oE","1tO4MeedxL6gtwnD4AywVkxny6PDbKrdu","1CsZiTF35pHAR_65JVOj2uEl9ypB3Dwki"].map(gd) },
+    ],
+  },
+  {
+    title: "Real Time Hair", tag: "Hair Grooming", bg: gd("12o_rjW14crERqUlOD91Bw4ELdmG33kNw"),
+    projects: [
+      { title: "Bob Cut", thumb: gd("12o_rjW14crERqUlOD91Bw4ELdmG33kNw"), images: ["1MafyH_NfwDvx5OVZqrv33hYtOfC5x-Y9","1QITHH17-QxLEghMuVPy5T9pslwQlvrHN","1SaF-gl0Cx_8Bkx0sV4PIZZRf4egvde1q","1nV8QYM-108dOlQtscbJfSoDaMVR-s7WL","1ci73MP3_u_uy1erby7eJ9mhs6xZU7OGz","11wPa98SiKzT7fOtL-dGmlCKuhhNuNTZ-","13gnFGHVXd6oMYA6wygnHpTy57oiXjJxz","1LzbD_cQpOIGrtdJSYaXfqFbK6wZ4L8-C"].map(gd) },
+    ],
+  },
   { title: "Clothing and Simulation", tag: "Cloth Simulation", bg: img11, spanCol: true, images: [img11, sh1, hp1] },
   { title: "Collectibles", tag: "Showcase", bg: sh1, images: [sh1, sh2, img11] },
   { title: "Rigging", tag: "Skeletal & Facial", bg: hp1, images: [hp1, img26, sh1] },
@@ -122,8 +149,9 @@ export default function BeastGamesInteractive() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
   const [hoveredPortfolio, setHoveredPortfolio] = useState(null);
-  const [openPortfolio, setOpenPortfolio] = useState(null); // index of open project or null
-  const [lightboxIdx, setLightboxIdx] = useState(null); // index of image in carousel or null
+  const [openPortfolio, setOpenPortfolio] = useState(null); // index of open category or null
+  const [openProject, setOpenProject] = useState(null);   // index of open sub-project or null
+  const [lightboxIdx, setLightboxIdx] = useState(null);   // index of image in carousel or null
   const [emailPopover, setEmailPopover] = useState(null); // "contact" | "joinus" | null
   const [heroSlide, setHeroSlide] = useState(0);
   const { w } = useWindowSize();
@@ -146,30 +174,35 @@ export default function BeastGamesInteractive() {
   }, []);
 
   useEffect(() => {
-    const lock = menuOpen || openPortfolio !== null;
+    const lock = menuOpen || openPortfolio !== null || openProject !== null;
     document.body.style.overflow = lock ? "hidden" : "";
     document.documentElement.style.overflow = lock ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, [menuOpen, openPortfolio]);
+  }, [menuOpen, openPortfolio, openProject]);
 
   useEffect(() => {
     if (openPortfolio === null) return;
-    const total = portfolioItems[openPortfolio].images?.length ?? 1;
+    const item = portfolioItems[openPortfolio];
+    const activeImages = item.projects
+      ? (openProject !== null ? item.projects[openProject].images : [])
+      : (item.images ?? [item.bg]);
+    const total = activeImages.length;
     const handler = (e) => {
       if (e.key === "Escape") {
         if (lightboxIdx !== null) setLightboxIdx(null);
-        else setOpenPortfolio(null);
-      } else if (lightboxIdx !== null) {
+        else if (openProject !== null) setOpenProject(null);
+        else { setOpenPortfolio(null); setOpenProject(null); }
+      } else if (lightboxIdx !== null && total > 1) {
         if (e.key === "ArrowRight") setLightboxIdx((c) => (c + 1) % total);
         else if (e.key === "ArrowLeft") setLightboxIdx((c) => (c - 1 + total) % total);
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [openPortfolio, lightboxIdx]);
+  }, [openPortfolio, openProject, lightboxIdx]);
 
   useEffect(() => {
     if (!emailPopover) return;
@@ -613,7 +646,7 @@ export default function BeastGamesInteractive() {
                   <div key={i}
                     onMouseEnter={() => setHoveredPortfolio(i)}
                     onMouseLeave={() => setHoveredPortfolio(null)}
-                    onClick={() => { setOpenPortfolio(i); setLightboxIdx(null); }}
+                    onClick={() => { setOpenPortfolio(i); setOpenProject(null); setLightboxIdx(null); }}
                     style={{
                       position:"relative", overflow:"hidden", cursor:"pointer",
                       backgroundImage: `url(${p.bg})`, backgroundSize:"cover", backgroundPosition:"center",
@@ -894,199 +927,236 @@ export default function BeastGamesInteractive() {
         </Container>
       </footer>
 
-      {/* ===== PORTFOLIO PROJECT VIEW (gallery) ===== */}
+      {/* ===== PORTFOLIO MODAL (gallery + lightbox) ===== */}
       {openPortfolio !== null && (() => {
         const item = portfolioItems[openPortfolio];
-        const images = item.images ?? [item.bg];
-        const total = images.length;
+        const hasProjects = !!item.projects;
+        // When item has sub-projects and one is open, use its images; otherwise flat images
+        const activeImages = hasProjects
+          ? (openProject !== null ? item.projects[openProject].images : [])
+          : (item.images ?? [item.bg]);
+        const total = activeImages.length;
+        // Gallery content: project thumbnails (if hasProjects) or flat image list
+        const galleryItems = hasProjects
+          ? item.projects.map(p => ({ src: p.thumb, label: p.title }))
+          : activeImages.map((src, i) => ({ src, label: null, idx: i }));
+
+        const btnStyle = {
+          width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
+          background:"transparent", color:"#fff",
+          border:"1px solid rgba(255,255,255,0.18)",
+          fontSize: isMobile ? "1.2rem" : "1.5rem",
+          cursor:"pointer", transition:"all .25s",
+          display:"flex", alignItems:"center", justifyContent:"center",
+          padding:0, lineHeight:1,
+        };
+        const btnHover = e => { e.currentTarget.style.borderColor="#ff3c1f"; e.currentTarget.style.color="#ff3c1f"; };
+        const btnLeave = e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.18)"; e.currentTarget.style.color="#fff"; };
+
         return (
           <div
-            onClick={() => setOpenPortfolio(null)}
+            onClick={() => { if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else setOpenPortfolio(null); }}
             style={{
               position:"fixed", inset:0, zIndex:1000,
-              background:"#0a0a0f",
-              overflowY:"auto",
+              background: lightboxIdx !== null ? "#000" : "#0a0a0f",
+              overflowY: lightboxIdx !== null ? "hidden" : "auto",
               overscrollBehavior:"contain",
               animation:"fadeIn .3s ease",
+              display: lightboxIdx !== null ? "flex" : "block",
+              alignItems: lightboxIdx !== null ? "center" : undefined,
+              justifyContent: lightboxIdx !== null ? "center" : undefined,
+              padding: lightboxIdx !== null ? (isMobile ? "72px 16px 40px" : "100px 60px 80px") : 0,
             }}>
+
+            {/* Close / back button */}
             <button
-              onClick={(e) => { e.stopPropagation(); setOpenPortfolio(null); }}
+              onClick={(e) => { e.stopPropagation(); if (lightboxIdx !== null) setLightboxIdx(null); else if (openProject !== null) setOpenProject(null); else setOpenPortfolio(null); }}
               aria-label="Close"
               style={{
                 position:"fixed", top: isMobile ? 14 : 24, right: isMobile ? 14 : 24,
-                width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
-                background:"rgba(10,10,15,0.85)", color:"#fff",
-                border:"1px solid rgba(255,255,255,0.18)",
-                fontSize: isMobile ? "1.2rem" : "1.5rem",
-                cursor:"pointer", zIndex:2, transition:"all .25s",
-                fontFamily:"'Exo 2',sans-serif",
-                display:"flex", alignItems:"center", justifyContent:"center",
-                padding:0, lineHeight:1,
+                ...btnStyle,
+                background:"rgba(10,10,15,0.85)", zIndex:1200,
               }}
-              onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
-              onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
+              onMouseEnter={btnHover} onMouseLeave={btnLeave}
             >×</button>
 
-            <div
-              onClick={e => e.stopPropagation()}
-              style={{
-                width:"100%", maxWidth: 1400, margin:"0 auto",
-                padding: isMobile ? "60px 16px 40px" : "80px 40px 60px",
-                display:"flex", flexDirection:"column", gap: isMobile ? 24 : 40,
-              }}
-            >
-              <div style={{ textAlign:"center" }}>
-                <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".65rem" : ".8rem", letterSpacing:3, textTransform:"uppercase", color:"#ff3c1f", fontWeight:700, marginBottom: 8 }}>{item.tag}</div>
-                <h3 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "3.5rem" : "2.8rem", letterSpacing:1, color:"#fff", marginBottom: 6 }}>{item.title}</h3>
-                <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", letterSpacing:1 }}>
-                  {total} {total === 1 ? "image" : "images"}
-                </div>
-              </div>
+            {/* Back arrow when inside a sub-project */}
+            {(openProject !== null || (hasProjects && lightboxIdx === null)) && openProject !== null && lightboxIdx === null && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setOpenProject(null); setLightboxIdx(null); }}
+                aria-label="Back"
+                style={{
+                  position:"fixed", top: isMobile ? 14 : 24, left: isMobile ? 14 : 24,
+                  ...btnStyle, background:"rgba(10,10,15,0.85)", zIndex:1200,
+                  fontSize: isMobile ? "1rem" : "1.2rem",
+                }}
+                onMouseEnter={btnHover} onMouseLeave={btnLeave}
+              >‹</button>
+            )}
 
-              <div style={{
-                display:"grid",
-                gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(2, 1fr)",
-                gap: isMobile ? 12 : 20,
-              }}>
-                {images.map((src, i) => (
-                  <div
-                    key={i}
-                    onClick={() => setLightboxIdx(i)}
-                    style={{
-                      position:"relative", overflow:"hidden", cursor:"pointer",
-                      aspectRatio:"4 / 3",
-                      backgroundImage:`url(${src})`,
-                      backgroundSize:"cover",
-                      backgroundPosition:"center",
-                      transition:"transform .4s",
-                    }}
-                    onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
-                    onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
-                  >
-                    <div style={{
-                      position:"absolute", inset:0,
-                      background:"linear-gradient(135deg, rgba(255,60,31,0) 0%, rgba(255,60,31,0) 60%, rgba(255,60,31,0.18) 100%)",
-                      opacity: 0,
-                      transition:"opacity .3s",
-                    }}
-                      onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
-                    />
+            {/* ===== GALLERY VIEW (project thumbnails or flat images) ===== */}
+            {lightboxIdx === null && (
+              <div
+                onClick={e => e.stopPropagation()}
+                style={{
+                  width:"100%", maxWidth: 1400, margin:"0 auto",
+                  padding: isMobile ? "60px 16px 40px" : "80px 40px 60px",
+                  display:"flex", flexDirection:"column", gap: isMobile ? 24 : 40,
+                }}
+              >
+                <div style={{ textAlign:"center" }}>
+                  <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize: isMobile ? ".65rem" : ".8rem", letterSpacing:3, textTransform:"uppercase", color:"#ff3c1f", fontWeight:700, marginBottom: 8 }}>{item.tag}</div>
+                  <h3 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize: isMobile ? "2rem" : isWide ? "3.5rem" : "2.8rem", letterSpacing:1, color:"#fff", marginBottom: 6 }}>
+                    {openProject !== null ? item.projects[openProject].title : item.title}
+                  </h3>
+                  <div style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", letterSpacing:1 }}>
+                    {openProject !== null
+                      ? `${total} ${total === 1 ? "image" : "images"}`
+                      : (hasProjects ? `${galleryItems.length} works` : `${galleryItems.length} ${galleryItems.length === 1 ? "image" : "images"}`)
+                    }
                   </div>
-                ))}
+                </div>
+
+                {openProject === null ? (
+                  /* Project thumbnail grid */
+                  <div style={{
+                    display:"grid",
+                    gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+                    gap: isMobile ? 12 : 20,
+                  }}>
+                    {galleryItems.map((g, i) => (
+                      <div
+                        key={i}
+                        onClick={() => hasProjects ? (setOpenProject(i), setLightboxIdx(null)) : setLightboxIdx(g.idx ?? i)}
+                        style={{
+                          position:"relative", overflow:"hidden", cursor:"pointer",
+                          aspectRatio:"4 / 3",
+                          backgroundImage:`url(${g.src})`,
+                          backgroundSize:"cover",
+                          backgroundPosition:"center",
+                          transition:"transform .4s",
+                        }}
+                        onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
+                        onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
+                      >
+                        {g.label && (
+                          <div style={{
+                            position:"absolute", inset:0,
+                            background:"linear-gradient(to top, rgba(10,10,15,0.88) 0%, rgba(10,10,15,0) 55%)",
+                            display:"flex", flexDirection:"column", justifyContent:"flex-end",
+                            padding: isMobile ? 12 : 20,
+                            opacity: isMobile ? 1 : 0,
+                            transition:"opacity .3s",
+                          }}
+                            onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
+                            onMouseLeave={e => { if (!isMobile) e.currentTarget.style.opacity = 0; }}
+                          >
+                            <span style={{ fontFamily:"'Exo 2',sans-serif", fontWeight:700, fontSize: isMobile ? ".8rem" : ".9rem", letterSpacing:.5 }}>{g.label}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Image grid for selected sub-project */
+                  <div style={{
+                    display:"grid",
+                    gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+                    gap: isMobile ? 12 : 20,
+                  }}>
+                    {activeImages.map((src, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setLightboxIdx(i)}
+                        style={{
+                          position:"relative", overflow:"hidden", cursor:"pointer",
+                          aspectRatio:"4 / 3",
+                          backgroundImage:`url(${src})`,
+                          backgroundSize:"cover",
+                          backgroundPosition:"center",
+                          transition:"transform .4s",
+                        }}
+                        onMouseEnter={e => { if(isDesktop) e.currentTarget.style.transform="scale(1.02)"; }}
+                        onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}
+                      >
+                        <div style={{
+                          position:"absolute", inset:0,
+                          background:"linear-gradient(135deg, transparent 60%, rgba(255,60,31,0.18) 100%)",
+                          opacity: 0, transition:"opacity .3s",
+                        }}
+                          onMouseEnter={e => { e.currentTarget.style.opacity = 1; }}
+                          onMouseLeave={e => { e.currentTarget.style.opacity = 0; }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
             {/* ===== LIGHTBOX CAROUSEL ===== */}
             {lightboxIdx !== null && (
-              <div
-                onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
-                style={{
-                  position:"fixed", inset:0, zIndex:1100,
-                  background:"#000",
-                  display:"flex", alignItems:"center", justifyContent:"center",
-                  padding: isMobile ? "72px 16px 40px" : "100px 60px 80px",
-                  animation:"fadeIn .25s ease",
-                  overscrollBehavior:"contain",
+              <div onClick={e => e.stopPropagation()} style={{
+                position:"relative", width:"100%", maxWidth: 1400,
+                height:"100%",
+                display:"flex", flexDirection:"column", gap: isMobile ? 16 : 20,
+              }}>
+                <div style={{
+                  position:"relative", width:"100%",
+                  flex:1, minHeight:0,
+                  background:"#0a0a0f",
+                  overflow:"hidden",
                 }}>
-                <button
-                  onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
-                  aria-label="Close"
-                  style={{
-                    position:"absolute", top: isMobile ? 14 : 24, right: isMobile ? 14 : 24,
-                    width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
-                    background:"transparent", color:"#fff",
-                    border:"1px solid rgba(255,255,255,0.18)",
-                    fontSize: isMobile ? "1.2rem" : "1.5rem",
-                    cursor:"pointer", zIndex:2, transition:"all .25s",
-                    display:"flex", alignItems:"center", justifyContent:"center",
-                    padding:0, lineHeight:1,
-                  }}
-                  onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
-                  onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
-                >×</button>
-
-                <div onClick={e => e.stopPropagation()} style={{
-                  position:"relative", width:"100%", maxWidth: 1400,
-                  height:"100%",
-                  display:"flex", flexDirection:"column", gap: isMobile ? 16 : 20,
-                }}>
-                  <div style={{
-                    position:"relative", width:"100%",
-                    flex:1, minHeight:0,
-                    background:"#0a0a0f",
-                    overflow:"hidden",
-                  }}>
-                    {images.map((src, i) => (
-                      <div key={i} style={{
-                        position:"absolute", inset:0,
-                        backgroundImage:`url(${src})`,
-                        backgroundSize:"contain",
-                        backgroundPosition:"center",
-                        backgroundRepeat:"no-repeat",
-                        opacity: lightboxIdx === i ? 1 : 0,
-                        transition:"opacity .4s ease",
-                      }} />
-                    ))}
-
-                    {total > 1 && (
-                      <>
-                        <button
-                          onClick={() => setLightboxIdx((c) => (c - 1 + total) % total)}
-                          aria-label="Previous"
-                          style={{
-                            position:"absolute", left: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)",
-                            width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
-                            background:"transparent", color:"#fff",
-                            border:"1px solid rgba(255,255,255,0.18)",
-                            fontSize: isMobile ? "1.2rem" : "1.5rem",
-                            cursor:"pointer", transition:"all .25s",
-                            display:"flex", alignItems:"center", justifyContent:"center",
-                            padding:0, lineHeight:1,
-                          }}
-                          onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
-                          onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
-                        >‹</button>
-                        <button
-                          onClick={() => setLightboxIdx((c) => (c + 1) % total)}
-                          aria-label="Next"
-                          style={{
-                            position:"absolute", right: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)",
-                            width: isMobile ? 40 : 48, height: isMobile ? 40 : 48,
-                            background:"transparent", color:"#fff",
-                            border:"1px solid rgba(255,255,255,0.18)",
-                            fontSize: isMobile ? "1.2rem" : "1.5rem",
-                            cursor:"pointer", transition:"all .25s",
-                            display:"flex", alignItems:"center", justifyContent:"center",
-                            padding:0, lineHeight:1,
-                          }}
-                          onMouseEnter={e => { e.target.style.borderColor="#ff3c1f"; e.target.style.color="#ff3c1f"; }}
-                          onMouseLeave={e => { e.target.style.borderColor="rgba(255,255,255,0.18)"; e.target.style.color="#fff"; }}
-                        >›</button>
-                      </>
-                    )}
-                  </div>
+                  {activeImages.map((src, i) => (
+                    <div key={i} style={{
+                      position:"absolute", inset:0,
+                      backgroundImage:`url(${src})`,
+                      backgroundSize:"contain",
+                      backgroundPosition:"center",
+                      backgroundRepeat:"no-repeat",
+                      opacity: lightboxIdx === i ? 1 : 0,
+                      transition:"opacity .4s ease",
+                    }} />
+                  ))}
 
                   {total > 1 && (
-                    <div style={{ display:"flex", gap:10, justifyContent:"center", alignItems:"center" }}>
-                      {images.map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setLightboxIdx(i)}
-                          aria-label={`Slide ${i + 1}`}
-                          style={{
-                            width: lightboxIdx === i ? 28 : 8, height: 8,
-                            background: lightboxIdx === i ? "#ff3c1f" : "rgba(255,255,255,0.25)",
-                            border:"none", cursor:"pointer", padding:0,
-                            transition:"all .3s",
-                          }}
-                        />
-                      ))}
-                      <span style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", marginLeft: 14, letterSpacing: 1 }}>
-                        {String(lightboxIdx + 1).padStart(2,"0")} / {String(total).padStart(2,"0")}
-                      </span>
-                    </div>
+                    <>
+                      <button
+                        onClick={e => { e.stopPropagation(); setLightboxIdx((c) => (c - 1 + total) % total); }}
+                        aria-label="Previous"
+                        style={{ position:"absolute", left: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)", ...btnStyle }}
+                        onMouseEnter={btnHover} onMouseLeave={btnLeave}
+                      >‹</button>
+                      <button
+                        onClick={e => { e.stopPropagation(); setLightboxIdx((c) => (c + 1) % total); }}
+                        aria-label="Next"
+                        style={{ position:"absolute", right: isMobile ? 8 : 20, top:"50%", transform:"translateY(-50%)", ...btnStyle }}
+                        onMouseEnter={btnHover} onMouseLeave={btnLeave}
+                      >›</button>
+                    </>
                   )}
                 </div>
+
+                {total > 1 && (
+                  <div style={{ display:"flex", gap:10, justifyContent:"center", alignItems:"center" }}>
+                    {activeImages.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={e => { e.stopPropagation(); setLightboxIdx(i); }}
+                        aria-label={`Slide ${i + 1}`}
+                        style={{
+                          width: lightboxIdx === i ? 28 : 8, height: 8,
+                          background: lightboxIdx === i ? "#ff3c1f" : "rgba(255,255,255,0.25)",
+                          border:"none", cursor:"pointer", padding:0,
+                          transition:"all .3s",
+                        }}
+                      />
+                    ))}
+                    <span style={{ fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", color:"#8a8a9a", marginLeft: 14, letterSpacing: 1 }}>
+                      {String(lightboxIdx + 1).padStart(2,"0")} / {String(total).padStart(2,"0")}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>
