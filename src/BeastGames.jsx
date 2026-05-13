@@ -109,10 +109,30 @@ const portfolioItems = [
       { title: "Bob Cut", thumb: gd("12o_rjW14crERqUlOD91Bw4ELdmG33kNw"), images: ["1MafyH_NfwDvx5OVZqrv33hYtOfC5x-Y9","1QITHH17-QxLEghMuVPy5T9pslwQlvrHN","1SaF-gl0Cx_8Bkx0sV4PIZZRf4egvde1q","1nV8QYM-108dOlQtscbJfSoDaMVR-s7WL","1ci73MP3_u_uy1erby7eJ9mhs6xZU7OGz","11wPa98SiKzT7fOtL-dGmlCKuhhNuNTZ-","13gnFGHVXd6oMYA6wygnHpTy57oiXjJxz","1LzbD_cQpOIGrtdJSYaXfqFbK6wZ4L8-C"].map(gd) },
     ],
   },
-  { title: "Clothing and Simulation", tag: "Cloth Simulation", bg: img11, spanCol: true, images: [img11, sh1, hp1] },
-  { title: "Collectibles", tag: "Showcase", bg: sh1, images: [sh1, sh2, img11] },
-  { title: "Rigging", tag: "Skeletal & Facial", bg: hp1, images: [hp1, img26, sh1] },
-  { title: "Props and Accessories", tag: "Hero Props", bg: sh2, spanCol: true, images: [sh2, hp1, img26] },
+  {
+    title: "Clothing and Simulation", tag: "Cloth Simulation", bg: gd("1rfbu2CnVhpdJ4H1FjzpzjdaspjJgQ7Lp"), spanCol: true,
+    projects: [
+      { title: "Joel", thumb: gd("1rfbu2CnVhpdJ4H1FjzpzjdaspjJgQ7Lp"), images: ["1BIV-7_M78Hlojh6DCESKgNo5BGrilgSC","1h0OJYmc4gTERIDTGh1Ug5CaA8e5a3f9u","1UG21LF2Bu2slBFhfPDp4idp_ZLCkCYKT","17KPrshmvYbwEv0euhLoqr9JuDRYT27WA","1apusv9M1MAHNuEmSD5pbRidHoTD1LHE8"].map(gd) },
+      { title: "Leather Jacket", thumb: gd("1EVLSGJ3oVOB09uGCsuNHxRkPJ_Zm2Yfe"), images: ["1URF0eNDsf0hDl9F4jIny222XGbkxUPh2","11CjA70QqskRJFVe4Xf7LQ1vsnk1_LSTo","1J-KcJesVqNeT8yuWRrj7iw_ZSxb8rwL3","11l5mfCXturXMNOXWWkCdEx2slCaLegSU","1Yf5xm3hsL5UkqtTWq8Hzt-VPIoAmdLr4"].map(gd) },
+      { title: "Long Coat", thumb: gd("1q5UTeUgmkpaTwHcRG8uJPszYAqM3yT1p"), images: ["16j1EGt-nc_kbFt2MaZue2AYCvIvsPoL0","10kyhO91cQTV8qZVQK4bLflFJdgG8VK1O","1HDYq3syvb6mYCLiDSuGcTWxPSk3LTSjD","1kXplC8SSoqABfr__3BX_9GuuPpi8wKTK","1PLorxn9mAmLGDoOhV40cWo5KHO5vAXNl"].map(gd) },
+      { title: "Others", thumb: gd("16489iJp4KJp87e9pC3FlQCyaYatKUubu"), images: ["1YE7vIAKPPleY3aom3FQGb_IgeT5lh9LT","1AURXNbHDkcwcwAC2-hS1TDZTgKxjLX6s","1xe2SAini86vOdRbFScpRU24kg2o3B5qR","1O3XrEiPRVfY3kY16_od4qBdEWsAGRmyh","1hv8XAxa-tzpStZYgwQzzZXHS7bWZl1fL","1itG1wVQzP5uoV-ryWsQ_SMl78uchNR6Z","15IuwpwBT5omjqwultDbbSqIVwYIdyYLY"].map(gd) },
+      { title: "Pirate", thumb: gd("1zM8BMSV6TenhKc1dvSjE_DjMJkkgQXvk"), images: ["1cwr3rbJda3TKCUvIAkhop1PtKG4x3c0N","1diCbBNSmYTWaGavw3WvwiWoeKsVcspV5","17RUaIsnsF4mBCIyGEln7_isA0WQKnR3r","12Nr4e7caPQgw-A9NKudTwaVqkzr9Jc9o","1sgtpTTvt_P3iza0Q63iiOmPei934CD6F","1HiS9ZsEd8dhm6uRleqK7n6Q8z4nICa8h","1jIMOGAxEM6_eowv1-Yjtk7PaFJ-4MNiw"].map(gd) },
+      { title: "Tomb Raider", thumb: gd("1_A6DYqPb_BY5Vp99TToBJI3dVRJeJQ5f"), images: ["1gH9HKZXnobEt6WevpEoz0lfl1sEDfC2e","1KV3xmdFt-LtjzYPy-CIaEjNJSQJ1uVqI","1cKXzL4fxx81JVTv1jsSoFagX6wdyOqHr","1W5rAd0jAQT6YsYzJSxoJLTRMq2Yd2VEI","1xWEAflXOH558LzgL0XdKSDmV19s6z-6F","13eQz6_1kSmxy7GzlwRWCt1oQpd7DdKFm","1BwI1CqoOetsCbGte0seBUhXQIINzgJ1u","1MEockmyc3BaAp4KC_hRuUEFAYL_Yi2zp"].map(gd) },
+      { title: "Traveller", thumb: gd("1brL9Qumh13Pf3lTwaVhhS6jPb82tZw8l"), images: ["1Cdbp3RUR2iXoUXOGrSVFRgKnA_77cBXk","1erWLdrKVKbbP7iBZXoWlxueK0BXjPpPG","1E2XnsYTDDYgjWfIHFyIAHxkAnSDzyLL9","1iJ2ZabiM5Ct2GPJCkPffINJskv4syLHV"].map(gd) },
+    ],
+  },
+  {
+    title: "Collectibles", tag: "Showcase", bg: gd("10lR6XsLBNrYrMNoBFPRMRODe4f3AxC4f"),
+    projects: [
+      { title: "Dredd", thumb: gd("10lR6XsLBNrYrMNoBFPRMRODe4f3AxC4f"), images: ["1dh8aNmnorJaR0kkcOQr8xVcNdFWxr50a","1L6UMZVbPiaQ45Xbfk1VZMMrCByRaYhXr","1u2lbGiYT5Wxj5efizprkQTJXbZlKkDib","1XYecxY1QstmbKK4mrtFjD--LCr6VcYu0","1OhHabFNlC3Sv1juwVDl9sevAjqdMeJMY"].map(gd) },
+      { title: "Magneto", thumb: gd("1e1x-qd5jTvN2iPYCwLiE5xQYEv0ErmEz"), images: ["1k1KFGnqpLCjSSz7Ed6giWZ5ldCkEtvn9","1GDaiHrZhtQCh_Fa4ZElzR2SEul7UCL_S","1sR4p5yvsrkAIJc8i5jNVyVktHD5MBA-r","1fE0la-5TRudp0j0-EH3aiyanecV_Fxbe","1hN7uRYbU7WV44VHcG53BaC61Th4d0tG0","1VrkbcUwELUKlMUFVcoSOzjP4faVs_JpW","18WGRQr14E72FaFO0V8VkG3pCzd_qUat0","1Uf-K_EpFaRtjbB_XQcMxjIkZviI-vbgn"].map(gd) },
+      { title: "Poison", thumb: gd("1D1p6iBnPaTd_-XbQG9K5dXqZVO5gwtwo"), images: ["1s_K5cKGcVJQP1d61sp8w2mPsVUGMPl8g","1hvPOetWg0KbBtLVw9z3yyi9i0Z-AqqRy","1w5OfACBSKs9kvfUdlM9ZYSpLUWYFv3cz","12G7aPlvElPymAykrOe39-MqW948-pDTr","1KPJaXdfdUZqH-9zXWj81Rb2--o8xfjD5","1UUBjIYmwhBPJ-Y7frzpV7x-6f7pgeDUn","1kMdObadrabPsl62eUiwHtqkBjDPu_Xs4"].map(gd) },
+      { title: "Red Goblin", thumb: gd("1yDL5yxZDHsRiCN3-MpebtGUso-Qdr1VK"), images: ["1ETCixJqCKy58BkK8l1_mc6hJygEske10","1k9w6aSDhvKOrqkMF_wa7tG5SVCNd38-M","1fSiAfMiqRQWUjSut37YZOcIMYuvdRTe-","1l5FEtPCZM6t83AYg52rFYzPBsi81pNop","1aLRp1kJcmqDlnHzFoQZvHmu8FbgJXguB","1eYn0CKAtRLKy6wegxtmDEW74c4dg2PDJ","1LOuGUeEnYugPnERQH5UnDM6kizmgSm-8"].map(gd) },
+      { title: "Spider-Man", thumb: gd("1smDAJpo_sEaYUCL6_TIdqHg9mrkkh1bm"), images: ["1rPz-qnmloGbThZ0OYVsNDC9SGspQ1TIk","1_WCE_V5d3BGNGBvQyKPqGd4NyxVQI5m3","1h-6zLAaoeFaDmD7Ju6cXczCOv8yo8H_C","15el_HrADkEYGwyoLgrqRIwpjcu6yu-z0","1i9pRqek3JVy-gRJD0db-X8kcidllvCTI","1BjsRVONd-k4z3CGk-LAeekmXkXeOdFeD"].map(gd) },
+    ],
+  },
+  // { title: "Rigging", tag: "Skeletal & Facial", bg: hp1, images: [hp1, img26, sh1] },
+  // { title: "Props and Accessories", tag: "Hero Props", bg: sh2, spanCol: true, images: [sh2, hp1, img26] },
 ];
 
 const processSteps = [
@@ -528,10 +548,10 @@ export default function BeastGamesInteractive() {
               textAlign:"center",
               marginBottom: isMobile ? 24 : isWide ? 52 : 40,
             }}>
-              {isMobile
+              {/* {isMobile
                 ? "We produce top-notch 2D and 3D art for PC, console, and mobile games. 650+ artists ready to bring your vision to life."
                 : "From triple-A to arcade to casual — we produce top-notch 2D and 3D art for PC, console, and mobile games. 650+ professional artists, motion designers, concept artists, VFX specialists, and UI/UX designers ready to bring your vision to life."
-              }
+              } */}
             </p>
           </FadeUp>
 
@@ -876,6 +896,12 @@ export default function BeastGamesInteractive() {
                     </a>
                   </div>
                 )}
+                <div onClick={() => navigator.clipboard.writeText("beastgameinteractive@gmail.com")}
+                  style={{ marginTop: 12, fontSize:".75rem", fontFamily:"'Exo 2',sans-serif", color:"#8a8a9a", cursor:"pointer", transition:"all .2s" }}
+                  onMouseEnter={e => { e.target.style.color="#f0eee9"; }}
+                  onMouseLeave={e => { e.target.style.color="#8a8a9a"; }}>
+                  📋 beastgameinteractive@gmail.com
+                </div>
               </div>
 
               {/* Join Us */}
@@ -905,13 +931,19 @@ export default function BeastGamesInteractive() {
                       ✉ Email App
                     </a>
                     <a href="https://mail.google.com/mail/?view=cm&to=hr@beastgame.co" target="_blank" rel="noreferrer" onClick={() => setEmailPopover(null)}
-                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s" }}
+                      style={{ display:"block", padding:"14px 20px", fontFamily:"'Exo 2',sans-serif", fontSize:".75rem", fontWeight:600, letterSpacing:1.5, textTransform:"uppercase", color:"#8a8a9a", textDecoration:"none", transition:"all .2s", borderBottom:"1px solid rgba(255,255,255,0.06)" }}
                       onMouseEnter={e => { e.target.style.color="#f0eee9"; e.target.style.background="rgba(255,255,255,0.04)"; }}
                       onMouseLeave={e => { e.target.style.color="#8a8a9a"; e.target.style.background="transparent"; }}>
                       ✉ Open in Gmail
                     </a>
                   </div>
                 )}
+                <div onClick={() => navigator.clipboard.writeText("hr@beastgame.co")}
+                  style={{ marginTop: 12, fontSize:".75rem", fontFamily:"'Exo 2',sans-serif", color:"#8a8a9a", cursor:"pointer", transition:"all .2s" }}
+                  onMouseEnter={e => { e.target.style.color="#f0eee9"; }}
+                  onMouseLeave={e => { e.target.style.color="#8a8a9a"; }}>
+                  📋 hr@beastgame.co
+                </div>
               </div>
             </div>
           </FadeUp>
